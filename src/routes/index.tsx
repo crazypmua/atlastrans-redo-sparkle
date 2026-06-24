@@ -38,6 +38,7 @@ function Index() {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: rawStyles }} />
+      <style dangerouslySetInnerHTML={{ __html: overrideStyles }} />
       <div dangerouslySetInnerHTML={{ __html: rawBody }} />
     </>
   );
