@@ -36,16 +36,17 @@ const overrideStyles = `
   .hero-inner { max-width: 760px !important; }
 
   /* Trust: image on the right */
-  #trust { display: grid; grid-template-columns: 1.1fr .9fr; gap: 3rem; align-items: center; }
-  #trust .trust-side {
+  .trust-row { display: grid; grid-template-columns: 1.05fr .95fr; gap: 2.5rem; align-items: stretch; margin-top: 1.5rem; }
+  .trust-row .trust-doc { margin: 0; }
+  .trust-side {
     border-radius: 16px; overflow: hidden;
     background: url(${trustUrl}) center/cover no-repeat;
     min-height: 420px;
     box-shadow: 0 20px 50px -20px rgba(11,26,46,.35);
   }
   @media (max-width: 860px) {
-    #trust { grid-template-columns: 1fr; }
-    #trust .trust-side { min-height: 240px; }
+    .trust-row { grid-template-columns: 1fr; }
+    .trust-side { min-height: 240px; }
   }
 
   /* For whom: background image */
@@ -59,10 +60,10 @@ const overrideStyles = `
   .whom-icon { display: none !important; }
 `;
 
-// Inject trust-side div into #trust
+// Wrap trust-doc with a grid containing a side image
 const bodyWithExtras = rawBody.replace(
-  /<section id="trust">([\s\S]*?)<\/section>/,
-  `<section id="trust"><div class="trust-main">$1</div><div class="trust-side" aria-hidden="true"></div></section>`
+  /(<div class="trust-doc">[\s\S]*?<\/div>\s*<\/div>\s*<\/div>)/,
+  `<div class="trust-row">$1<div class="trust-side" aria-hidden="true"></div></div>`
 );
 
 function Index() {
