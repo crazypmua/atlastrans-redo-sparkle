@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect } from "react";
 import siteHtml from "../../public/site.html?raw";
-import logoUrl from "../assets/logo.png";
-import heroUrl from "../assets/hero-logistics.jpg";
-import trustUrl from "../assets/trust-broker.jpg";
-import clientsBgUrl from "../assets/clients-bg.jpg";
+
+const logoUrl = "/logo.png";
+const heroUrl = "/hero-logistics.jpg";
+const trustUrl = "/trust-broker.jpg";
+const clientsBgUrl = "/clients-bg.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({

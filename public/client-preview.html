@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atlas Trans — Відділ ЗЕД на аутсорсі</title>
+  <meta name="description" content="Митне оформлення, імпорт під ключ та сертифікація. Atlas Trans — ваш зовнішньоекономічний відділ на аутсорсі. Авторизований митний брокер України." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:   #0b1a2e;
+      --blue:   #12305c;
+      --mid:    #1a4a8a;
+      --accent: #2563b0;
+      --cyan:   #0ea5c9;
+      --gold:   #e8a923;
+      --light:  #f1f5fb;
+      --border: #d0dced;
+      --white:  #fff;
+      --gray:   #5c6e85;
+      --text:   #1a2535;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; color: var(--text); background: var(--white); line-height: 1.7; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: var(--navy); height: 62px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 6%;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .logo { display: flex; align-items: center; text-decoration: none; }
+    .logo img { height: 40px; width: auto; }
+    .logo-fallback { font-size: 1.2rem; font-weight: 800; letter-spacing: .07em; color: #fff; display: none; }
+    .logo-fallback span { color: #5b9ee6; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,.6); text-decoration: none; font-size: .87rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta { background: var(--accent) !important; color: #fff !important; padding: .38rem 1.1rem; border-radius: 5px; font-weight: 600 !important; }
+    .nav-cta:hover { background: var(--mid) !important; }
+    .nav-phone {
+      display: inline-flex; align-items: center; gap: .55rem;
+      color: #fff; text-decoration: none; font-weight: 700; font-size: 1rem;
+      letter-spacing: .01em;
+    }
+    .nav-phone:hover { color: var(--cyan); }
+    .nav-phone svg { width: 16px; height: 16px; stroke: var(--cyan); fill: none; stroke-width: 2; }
+    .eyebrow { display: none !important; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      background: linear-gradient(155deg, var(--navy) 0%, var(--blue) 55%, #1e5298 80%, #0e3d6e 100%);
+      display: flex; align-items: center;
+      padding: 120px 6% 80px;
+      position: relative; overflow: hidden;
+    }
+    #hero::before {
+      content: ''; position: absolute; top: -100px; right: -100px;
+      width: 550px; height: 550px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(14,165,201,.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #hero::after {
+      content: ''; position: absolute; bottom: -60px; left: 35%;
+      width: 380px; height: 380px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,99,176,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 4rem; align-items: center; width: 100%; position: relative; z-index: 2; }
+    .hero-inner { max-width: 660px; position: relative; }
+    .hero-visual {
+      position: relative; border-radius: 18px; overflow: hidden;
+      box-shadow: 0 30px 80px -20px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.08);
+      aspect-ratio: 4/3;
+    }
+    .hero-visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-visual::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(11,26,46,.55) 100%);
+    }
+    .hero-badge {
+      position: absolute; left: 1.2rem; bottom: 1.2rem; z-index: 2;
+      background: rgba(11,26,46,.75); backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,.12); color: #fff;
+      padding: .55rem .9rem; border-radius: 8px;
+      font-size: .78rem; font-weight: 600; letter-spacing: .02em;
+      display: flex; align-items: center; gap: .55rem;
+    }
+    .hero-badge::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); }
+    @media (max-width: 960px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-visual { aspect-ratio: 16/10; }
+    }
+    .hero-company {
+      font-size: .8rem; font-weight: 700; letter-spacing: .2em;
+      text-transform: uppercase; color: rgba(255,255,255,.45);
+      margin-bottom: 1.1rem;
+    }
+    #hero h1 {
+      font-size: clamp(2rem, 4.5vw, 3.1rem); font-weight: 800;
+      color: #fff; line-height: 1.18; margin-bottom: 1.3rem;
+    }
+    #hero h1 em { font-style: normal; color: #6dbff2; }
+    #hero p {
+      font-size: 1.08rem; color: rgba(255,255,255,.65);
+      max-width: 520px; line-height: 1.78; margin-bottom: 2rem;
+    }
+    .hero-auth {
+      display: flex; align-items: center; gap: .55rem;
+      font-size: .82rem; color: rgba(255,255,255,.45);
+      margin-bottom: 2.2rem;
+    }
+    .hero-auth-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--cyan); flex-shrink: 0;
+      box-shadow: 0 0 6px var(--cyan);
+    }
+    .hero-cta {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--cyan), var(--accent));
+      color: #fff; padding: .9rem 2.2rem; border-radius: 6px;
+      font-size: .98rem; font-weight: 700; text-decoration: none;
+      box-shadow: 0 4px 20px rgba(14,165,201,.3);
+      transition: opacity .2s, transform .15s;
+    }
+    .hero-cta:hover { opacity: .9; transform: translateY(-2px); }
+    .hero-note { margin-top: 1rem; font-size: .82rem; color: rgba(255,255,255,.3); }
+
+    /* ── SECTION BASE ── */
+    section { padding: 88px 6%; }
+    .eyebrow { font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-bottom: .6rem; }
+    .s-title { font-size: clamp(1.55rem, 3vw, 2.2rem); font-weight: 800; color: var(--navy); line-height: 1.22; margin-bottom: 2.5rem; }
+    .center.s-title { margin-bottom: 3rem; }
+    .s-lead { font-size: 1rem; color: var(--gray); max-width: 620px; margin-bottom: 2.8rem; line-height: 1.75; }
+    .center { text-align: center; }
+    .center .s-lead { margin-left: auto; margin-right: auto; }
+
+    /* ── ZED BLOCK ── */
+    #zed { background: var(--light); }
+    .zed-block { max-width: 760px; display: flex; flex-direction: column; gap: 1.2rem; }
+    .zed-block p { font-size: 1.05rem; color: var(--text); line-height: 1.8; }
+
+    /* ── WHY OUTSOURCE ── */
+    #why { background: var(--white); }
+    .why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+    .why-item {
+      display: flex; gap: 1.1rem; align-items: flex-start;
+      padding: 1.5rem; border: 1px solid var(--border); border-radius: 10px;
+    }
+    .why-icon {
+      width: 36px; height: 36px; min-width: 36px; border-radius: 8px;
+      background: var(--light); display: flex; align-items: center; justify-content: center;
+    }
+    .why-icon svg { width: 17px; height: 17px; stroke: var(--accent); fill: none; stroke-width: 2; }
+    .why-item strong { display: block; font-size: .95rem; color: var(--navy); margin-bottom: .2rem; }
+    .why-item span { font-size: .86rem; color: var(--gray); line-height: 1.6; }
+
+    /* ── SERVICES ── */
+    #services { background: var(--light); }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
+    .card {
+      background: var(--white); border: 1px solid var(--border); border-radius: 12px;
+      padding: 2rem 1.8rem; display: flex; flex-direction: column;
+      transition: box-shadow .25s, transform .25s;
+    }
+    .card:hover { box-shadow: 0 12px 36px rgba(10,22,40,.1); transform: translateY(-4px); }
+    .card:nth-child(1) { border-top: 3px solid var(--accent); }
+    .card:nth-child(2) { border-top: 3px solid var(--cyan); }
+    .card:nth-child(3) { border-top: 3px solid var(--gold); }
+    .card-num { font-size: .7rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.1rem; }
+    .card h3 { font-size: 1.1rem; font-weight: 800; color: var(--navy); margin-bottom: .5rem; line-height: 1.3; }
+    .card-desc { font-size: .9rem; color: var(--gray); margin-bottom: 1.4rem; line-height: 1.65; }
+    .card-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; margin-top: auto; }
+    .card-list li { font-size: .85rem; color: var(--text); display: flex; align-items: center; gap: .55rem; }
+    .card-list li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+    /* ── FOR WHOM ── */
+    #forwhom { background: var(--navy); }
+    #forwhom .eyebrow { color: #7ab4e8; }
+    #forwhom .s-title { color: #fff; }
+    #forwhom .s-lead { color: rgba(255,255,255,.5); }
+    .whom-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+    .whom-card {
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.09);
+      border-radius: 12px; padding: 1.8rem; transition: background .2s;
+    }
+    .whom-card:hover { background: rgba(255,255,255,.09); }
+    .whom-icon { font-size: 1.4rem; margin-bottom: .8rem; }
+    .whom-card h3 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: .5rem; }
+    .whom-card p { font-size: .87rem; color: rgba(255,255,255,.5); line-height: 1.65; }
+
+    /* ── TRUST ── */
+    #trust { background: var(--light); }
+    .trust-doc {
+      max-width: 760px;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 16px; padding: 0; position: relative;
+      box-shadow: 0 20px 60px -30px rgba(18,48,92,.25);
+      overflow: hidden;
+    }
+    .trust-doc::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--cyan));
+    }
+    .trust-head {
+      display: flex; align-items: center; gap: 1.1rem;
+      padding: 1.8rem 2.2rem 1.4rem; border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, #f7fafe, #fff);
+    }
+    .trust-seal {
+      width: 64px; height: 64px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--accent), var(--cyan));
+      color: #fff; display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; box-shadow: 0 8px 20px -6px rgba(37,99,176,.55);
+      border: 3px solid #fff; outline: 1px solid var(--border);
+    }
+    .trust-head-text { flex: 1; min-width: 0; }
+    .trust-doc-label { font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: .35rem; }
+    .trust-doc h3 { font-size: 1.05rem; font-weight: 800; color: var(--navy); line-height: 1.4; }
+    .trust-verified {
+      display: inline-flex; align-items: center; gap: .35rem;
+      font-size: .72rem; font-weight: 700; color: #0a8a4a;
+      background: #e7f6ee; padding: .3rem .6rem; border-radius: 999px;
+      margin-top: .55rem;
+    }
+    .trust-body {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.4rem 2rem; padding: 1.8rem 2.2rem 2rem;
+    }
+    .trust-field { margin: 0; }
+    .trust-field-label { font-size: .7rem; font-weight: 600; color: var(--gray); text-transform: uppercase; letter-spacing: .08em; margin-bottom: .3rem; }
+    .trust-field-val { font-size: .95rem; color: var(--text); font-weight: 500; }
+    .trust-field-val strong { color: var(--accent); font-family: 'SF Mono', Menlo, monospace; letter-spacing: .02em; }
+    .trust-foot {
+      padding: 1rem 2.2rem; border-top: 1px solid var(--border);
+      background: #fafcff; font-size: .78rem; color: var(--gray);
+      display: flex; align-items: center; gap: .5rem;
+    }
+    @media (max-width: 600px) {
+      .trust-body { grid-template-columns: 1fr; }
+      .trust-head, .trust-body, .trust-foot { padding-left: 1.4rem; padding-right: 1.4rem; }
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--white);
+      display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: start;
+    }
+    .contact-text .s-lead { margin-bottom: 1.6rem; }
+    .contact-text p { font-size: .92rem; color: var(--gray); line-height: 1.75; margin-bottom: 1.6rem; }
+    .email-link {
+      display: inline-flex; align-items: center; gap: .65rem;
+      font-size: .95rem; font-weight: 600; color: var(--accent); text-decoration: none;
+    }
+    .email-link svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 1.8; flex-shrink: 0; }
+    .email-link:hover { text-decoration: underline; }
+    .form-box { background: var(--light); border-radius: 14px; padding: 2.2rem; }
+    .form-box h3 { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 1.6rem; }
+    .fg { margin-bottom: .95rem; }
+    .fg label { display: block; font-size: .78rem; font-weight: 600; color: var(--navy); margin-bottom: .32rem; letter-spacing: .02em; }
+    .fg input, .fg textarea, .fg select {
+      width: 100%; padding: .68rem .95rem;
+      border: 1.5px solid var(--border); border-radius: 7px;
+      font-size: .92rem; font-family: inherit; color: var(--text);
+      background: var(--white); outline: none;
+      transition: border-color .2s, box-shadow .2s; appearance: none;
+    }
+    .fg input:focus, .fg textarea:focus, .fg select:focus {
+      border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37,99,176,.11);
+    }
+    .fg textarea { resize: vertical; min-height: 90px; }
+    .form-btn {
+      width: 100%; padding: .9rem; background: var(--navy); color: #fff;
+      border: none; border-radius: 7px; font-size: .97rem; font-weight: 700;
+      font-family: inherit; cursor: pointer; transition: background .2s; margin-top: .3rem;
+    }
+    .form-btn:hover { background: var(--blue); }
+    .form-note { font-size: .74rem; color: var(--gray); text-align: center; margin-top: .65rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy); padding: 2rem 6%;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .f-logo { display: flex; align-items: center; }
+    .f-logo img { height: 34px; width: auto; }
+    .f-logo-fallback { font-size: 1.05rem; font-weight: 800; letter-spacing: .07em; color: #fff; display: none; }
+    .f-logo-fallback span { color: #5b9ee6; }
+    .f-nav { display: flex; gap: 1.8rem; }
+    .f-nav a { color: rgba(255,255,255,.4); text-decoration: none; font-size: .82rem; transition: color .2s; }
+    .f-nav a:hover { color: #fff; }
+    .f-copy { font-size: .76rem; color: rgba(255,255,255,.25); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1000px) {
+      #contact { grid-template-columns: 1fr; gap: 2.5rem; }
+      .cards { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 720px) {
+      .nav-links { display: none; }
+      section { padding: 64px 5%; }
+      .why-grid, .whom-grid, .cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <img src="logo.png" alt="Atlas Trans" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span class="logo-fallback">ATLAS<span>TRANS</span></span>
+  </a>
+  <a href="tel:+380000000000" class="nav-phone">
+    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    +38 (000) 000-00-00
+  </a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid">
+    <div class="hero-inner">
+      <div class="hero-company">Atlas Trans</div>
+      <h1>Ваш брокерський відділ <em>на аутсорсі</em></h1>
+      <p>Вам не потрібно тримати митного брокера або менеджера ЗЕД у штаті. Ви ставите задачу — ми беремо на себе митне оформлення, документи, сертифікацію, комунікацію з митницею та супровід поставки до результату.</p>
+      <div class="hero-auth">
+        <span class="hero-auth-dot"></span>
+        Авторизований митний брокер України · Авторизація № UACBR126002924
+      </div>
+      <a href="#contact" class="hero-cta">Обговорити задачу</a>
+      <p class="hero-note">Відповідаємо протягом робочого дня</p>
+    </div>
+    <div class="hero-visual">
+      <img src="hero-logistics.jpg" alt="Контейнерний термінал — імпорт та митне оформлення" />
+      <div class="hero-badge">Море · Авто · Митниця</div>
+    </div>
+  </div>
+</section>
+
+<!-- ZED -->
+<section id="zed">
+  <div class="eyebrow">Як ми працюємо</div>
+  <h2 class="s-title">Закриваємо функцію ЗЕД для вашого бізнесу</h2>
+  <div class="zed-block">
+    <p>Ми працюємо як зовнішній відділ: підключаємося тоді, коли потрібно оформити вантаж, організувати імпорт, отримати дозвільні документи або вирішити питання з митницею.</p>
+    <p>Ви не витрачаєте час на пошук окремого брокера, логіста, сертифікаційного органу чи спеціаліста з документів — усім процесом керує Atlas.</p>
+  </div>
+</section>
+
+<!-- WHY OUTSOURCE -->
+<section id="why">
+  <div class="eyebrow">Чому аутсорс</div>
+  <h2 class="s-title">Чому бізнес передає ЗЕД на аутсорс</h2>
+  <p class="s-lead">Власний спеціаліст потрібен не кожній компанії. Якщо поставки нерегулярні або задачі різні — вигідніше мати зовнішню команду, яка підключається під конкретну потребу.</p>
+  <div class="why-grid">
+    <div class="why-item">
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </div>
+      <div>
+        <strong>Платите за результат, не за присутність</strong>
+        <span>Не потрібно утримувати спеціаліста щомісяця — ви залучаєте нас під конкретну поставку або задачу.</span>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div>
+        <strong>Досвід, якого не дасть один штатний фахівець</strong>
+        <span>За плечима — сотні різних поставок, нестандартних ситуацій і вирішених питань з митницею.</span>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <div>
+        <strong>Один підрядник замість кількох</strong>
+        <span>Брокер, логіст, сертифікація — все в одному місці. Не потрібно координувати різних виконавців.</span>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+      <div>
+        <strong>Офіційно та з повною відповідальністю</strong>
+        <span>Авторизований митний брокер подає декларації від свого імені і несе юридичну відповідальність за оформлення.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="eyebrow center">Напрямки роботи</div>
+  <h2 class="s-title center">Що входить в наш периметр</h2>
+  <div class="cards">
+    <div class="card">
+      <div class="card-num">01</div>
+      <h3>Митне оформлення</h3>
+      <p class="card-desc">Оформлюємо імпорт, експорт, транзит та інші митні режими. Готуємо декларації, перевіряємо документи, підбираємо коди УКТ ЗЕД і супроводжуємо вантаж до випуску.</p>
+      <ul class="card-list">
+        <li>Підбір кодів УКТ ЗЕД</li>
+        <li>Митні декларації</li>
+        <li>Розрахунок платежів</li>
+        <li>Супровід митного контролю</li>
+        <li>Тимчасове ввезення та транзит</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-num">02</div>
+      <h3>Імпорт під ключ</h3>
+      <p class="card-desc">Організовуємо закупівлю товару за кордоном: постачальник, контракт, оплата, логістика, митне оформлення та передача товару вам з документами.</p>
+      <ul class="card-list">
+        <li>Пошук і перевірка постачальника</li>
+        <li>Укладення контракту та оплата</li>
+        <li>Організація міжнародної логістики</li>
+        <li>Митне оформлення</li>
+        <li>Передача товару з документами</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-num">03</div>
+      <h3>Сертифікація та дозволи</h3>
+      <p class="card-desc">Визначаємо, які документи потрібні для вашого товару, і супроводжуємо їх отримання: сертифікати, декларації відповідності, висновки, фітосанітарні чи інші дозвільні документи.</p>
+      <ul class="card-list">
+        <li>Сертифікати відповідності</li>
+        <li>Декларації про відповідність</li>
+        <li>Сертифікати походження</li>
+        <li>Фітосанітарні документи</li>
+        <li>Супровід випробувань</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FOR WHOM -->
+<section id="forwhom">
+  <div class="eyebrow">Кому підійдемо</div>
+  <h2 class="s-title">Хто наш клієнт</h2>
+  <p class="s-lead">Ми підходимо компаніям, яким ЗЕД потрібен як результат — без зайвих витрат і складнощів.</p>
+  <div class="whom-grid">
+    <div class="whom-card">
+      <div class="whom-icon">🚀</div>
+      <h3>Компанії, що виходять на імпорт</h3>
+      <p>Перша поставка — завжди найскладніша. Ми проведемо через весь процес від А до Я і пояснимо кожен крок.</p>
+    </div>
+    <div class="whom-card">
+      <div class="whom-icon">🛒</div>
+      <h3>Торгові компанії без відділу ЗЕД</h3>
+      <p>Займаєтесь продажами, а не митним оформленням? Правильно. Ми закриваємо ЗЕД — ви займаєтесь бізнесом.</p>
+    </div>
+    <div class="whom-card">
+      <div class="whom-icon">📦</div>
+      <h3>Малий та середній бізнес</h3>
+      <p>Тримати штатного брокера невигідно при нерегулярних поставках. Ми обходимось дешевше і закриваємо більше задач.</p>
+    </div>
+    <div class="whom-card">
+      <div class="whom-icon">🏭</div>
+      <h3>Виробники та підприємці</h3>
+      <p>Закуповуєте сировину або компоненти за кордоном? Організуємо повний цикл — від постачальника до вашого складу.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section id="trust">
+  <div class="eyebrow">Авторизація</div>
+  <h2 class="s-title">Авторизований митний брокер</h2>
+  <p class="s-lead">Ми діємо офіційно — на підставі авторизації Державної митної служби України.</p>
+  <div class="trust-doc">
+    <div class="trust-head">
+      <div class="trust-seal" aria-hidden="true">★</div>
+      <div class="trust-head-text">
+        <div class="trust-doc-label">Державна митна служба України</div>
+        <h3>Авторизація на провадження митної брокерської діяльності</h3>
+        <span class="trust-verified">✓ Діюча авторизація</span>
+      </div>
+    </div>
+    <div class="trust-body">
+      <div class="trust-field">
+        <div class="trust-field-label">Номер авторизації</div>
+        <div class="trust-field-val"><strong>UACBR126002924</strong></div>
+      </div>
+      <div class="trust-field">
+        <div class="trust-field-label">Статус</div>
+        <div class="trust-field-val">Активна · безстрокова</div>
+      </div>
+      <div class="trust-field">
+        <div class="trust-field-label">Підприємство</div>
+        <div class="trust-field-val">ТОВ «АТЛАС ТРАНС+»</div>
+      </div>
+      <div class="trust-field">
+        <div class="trust-field-label">ЄДРПОУ</div>
+        <div class="trust-field-val">43825232</div>
+      </div>
+    </div>
+    <div class="trust-foot">
+      🛡 Дані можна перевірити в реєстрі Державної митної служби України
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-text">
+    <div class="eyebrow">Контакти</div>
+    <h2 class="s-title">Обговоримо вашу задачу</h2>
+    <p class="s-lead">Опишіть що потрібно — відповімо протягом робочого дня.</p>
+    <p>Якщо ще не знаєте всіх деталей — нічого страшного. Напишіть що є, решту з'ясуємо разом.</p>
+    <br>
+    <a href="mailto:info@atlastrans.com.ua" class="email-link">
+      <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      info@atlastrans.com.ua
+    </a>
+  </div>
+  <div class="form-box">
+    <h3>Залишити заявку</h3>
+    <form action="mailto:info@atlastrans.com.ua" method="post" enctype="text/plain">
+      <div class="fg">
+        <label for="name">Ваше ім'я</label>
+        <input type="text" id="name" name="name" placeholder="Іван Петренко" required />
+      </div>
+      <div class="fg">
+        <label for="phone">Телефон</label>
+        <input type="tel" id="phone" name="phone" placeholder="+38 (0__) ___ __ __" required />
+      </div>
+      <div class="fg">
+        <label for="service">Що потрібно вирішити?</label>
+        <select id="service" name="service">
+          <option value="">— оберіть —</option>
+          <option>Митне оформлення (імпорт)</option>
+          <option>Митне оформлення (експорт / транзит)</option>
+          <option>Імпорт під ключ за договором комісії</option>
+          <option>Сертифікація товару</option>
+          <option>Консультація</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label for="message">Деталі</label>
+        <textarea id="message" name="message" placeholder="Товар, країна, орієнтовні строки..."></textarea>
+      </div>
+      <button type="submit" class="form-btn">Обговорити задачу →</button>
+      <p class="form-note">Натискаючи кнопку, ви погоджуєтесь на обробку персональних даних</p>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">
+    <img src="logo.png" alt="Atlas Trans" style="height:34px;width:auto;" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span class="f-logo-fallback">ATLAS<span>TRANS</span></span>
+  </div>
+  <nav class="f-nav">
+    <a href="#zed">Як ми працюємо</a>
+    <a href="#services">Послуги</a>
+    <a href="#forwhom">Кому підійдемо</a>
+    <a href="#trust">Авторизація</a>
+    <a href="#contact">Контакти</a>
+  </nav>
+  <span class="f-copy">© 2025 Atlas Trans · UACBR126002924</span>
+</footer>
+
+</body>
+</html>
