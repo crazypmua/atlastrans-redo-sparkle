@@ -1,11 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect } from "react";
 import siteHtml from "../../public/site.html?raw";
-
-const logoUrl = "/logo.png";
-const heroUrl = "/hero-logistics.jpg";
-const trustUrl = "/trust-broker.jpg";
-const clientsBgUrl = "/clients-bg.jpg";
+import logoUrl from "../assets/logo.png";
+import heroUrl from "../assets/hero-logistics.jpg";
+import trustUrl from "../assets/trust-broker.jpg";
+import clientsBgUrl from "../assets/clients-bg.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -24,7 +23,9 @@ const bodyMatch = siteHtml.match(/<body>([\s\S]*?)<\/body>/);
 const rawStyles = styleMatch ? styleMatch[1] : "";
 const rawBody = (bodyMatch ? bodyMatch[1] : "")
   .replace(/(["'(])\/?logo\.png/g, `$1${logoUrl}`)
-  .replace(/(["'(])\/?hero-logistics\.jpg/g, `$1${heroUrl}`);
+  .replace(/(["'(])\/?hero-logistics\.jpg/g, `$1${heroUrl}`)
+  .replace(/(["'(])\/?trust-broker\.jpg/g, `$1${trustUrl}`)
+  .replace(/(["'(])\/?clients-bg\.jpg/g, `$1${clientsBgUrl}`);
 
 const overrideStyles = `
   /* Logo: show full uploaded logo image */
