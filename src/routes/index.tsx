@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import siteHtml from "../../public/site.html?raw";
 import logoUrl from "../assets/logo.png";
 import heroUrl from "../assets/hero-logistics.jpg";
@@ -25,6 +26,21 @@ const rawBody = (bodyMatch ? bodyMatch[1] : "")
   .replace(/(["'(])\/?hero-logistics\.jpg/g, `$1${heroUrl}`);
 
 const overrideStyles = `
+  /* Logo: blend navy background with dark navbar so only white mark shows */
+  nav .logo img, footer .f-logo img {
+    mix-blend-mode: screen;
+  }
+  nav .logo img { height: 52px !important; }
+  nav .logo::after {
+    content: "ATLAS TRANS";
+    margin-left: .7rem;
+    font-weight: 800;
+    letter-spacing: .14em;
+    font-size: 1rem;
+    color: #fff;
+  }
+  footer .f-logo img { height: 44px !important; }
+
   #hero {
     background-image: linear-gradient(115deg, rgba(11,26,46,.92) 0%, rgba(18,48,92,.78) 45%, rgba(11,26,46,.55) 75%, rgba(11,26,46,.85) 100%), url(${heroUrl});
     background-size: cover;
@@ -73,6 +89,48 @@ const bodyWithExtras = rawBody.replace(
 );
 
 function Index() {
+  useEffect(() => {
+    const form = document.querySelector<HTMLFormElement>(".form-box form");
+    const phone = document.querySelector<HTMLInputElement>("#phone");
+    if (!form || !phone) return;
+
+    // Mask: keep "+" and digits only, format as +38 (0XX) XXX XX XX
+    const format = (raw: string) => {
+      let d = raw.replace(/\D/g, "");
+      if (d.startsWith("380")) d = d.slice(3);
+      if (d.startsWith("0")) d = d.slice(1);
+      d = d.slice(0, 9);
+      let out = "+38";
+      if (d.length > 0) out += " (0" + d.slice(0, 2);
+      if (d.length >= 2) out += ")";
+      if (d.length > 2) out += " " + d.slice(2, 5);
+      if (d.length > 5) out += " " + d.slice(5, 7);
+      if (d.length > 7) out += " " + d.slice(7, 9);
+      return out;
+    };
+    const onInput = () => { phone.value = format(phone.value); phone.setCustomValidity(""); };
+    phone.addEventListener("input", onInput);
+
+    const onSubmit = (e: Event) => {
+      const digits = phone.value.replace(/\D/g, "");
+      // Expect 12 digits: 380 + 9 more
+      const ok = /^380\d{9}$/.test(digits);
+      if (!ok) {
+        e.preventDefault();
+        phone.setCustomValidity("Введіть коректний номер у форматі +38 (0XX) XXX XX XX");
+        phone.reportValidity();
+        phone.focus();
+      } else {
+        phone.setCustomValidity("");
+      }
+    };
+    form.addEventListener("submit", onSubmit);
+    return () => {
+      phone.removeEventListener("input", onInput);
+      form.removeEventListener("submit", onSubmit);
+    };
+  }, []);
+
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: rawStyles }} />
