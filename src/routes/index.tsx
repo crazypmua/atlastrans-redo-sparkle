@@ -26,20 +26,26 @@ const rawBody = (bodyMatch ? bodyMatch[1] : "")
   .replace(/(["'(])\/?hero-logistics\.jpg/g, `$1${heroUrl}`);
 
 const overrideStyles = `
-  /* Logo: blend navy background with dark navbar so only white mark shows */
-  nav .logo img, footer .f-logo img {
-    mix-blend-mode: screen;
+  /* Logo: hide raster logo (navy bg conflicts with dark navbar) and show a clean wordmark */
+  nav .logo img, footer .f-logo img { display: none !important; }
+  nav .logo, footer .f-logo { gap: .55rem; }
+  nav .logo::before, footer .f-logo::before {
+    content: "";
+    width: 30px; height: 30px; border-radius: 7px;
+    background: linear-gradient(135deg, #0ea5c9, #2563b0);
+    box-shadow: 0 4px 14px rgba(14,165,201,.45);
+    display: inline-block;
+    position: relative;
   }
-  nav .logo img { height: 52px !important; }
-  nav .logo::after {
+  nav .logo::after, footer .f-logo::after {
     content: "ATLAS TRANS";
-    margin-left: .7rem;
     font-weight: 800;
-    letter-spacing: .14em;
-    font-size: 1rem;
+    letter-spacing: .18em;
+    font-size: 1.05rem;
     color: #fff;
   }
-  footer .f-logo img { height: 44px !important; }
+  footer .f-logo::after { font-size: .95rem; }
+  footer .f-logo::before { width: 26px; height: 26px; }
 
   #hero {
     background-image: linear-gradient(115deg, rgba(11,26,46,.92) 0%, rgba(18,48,92,.78) 45%, rgba(11,26,46,.55) 75%, rgba(11,26,46,.85) 100%), url(${heroUrl});
