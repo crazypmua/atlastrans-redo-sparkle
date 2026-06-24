@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import siteHtml from "../../public/site.html?raw";
 import logoUrl from "../assets/logo.png";
 import heroUrl from "../assets/hero-logistics.jpg";
+import trustUrl from "../assets/trust-broker.jpg";
+import clientsBgUrl from "../assets/clients-bg.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -32,14 +34,50 @@ const overrideStyles = `
   .hero-grid { grid-template-columns: 1fr !important; }
   .hero-visual { display: none !important; }
   .hero-inner { max-width: 760px !important; }
+
+  /* Trust: image on the right */
+  .trust-row { display: grid; grid-template-columns: 1.05fr .95fr; gap: 2.5rem; align-items: stretch; margin-top: 1.5rem; }
+  .trust-row .trust-doc { margin: 0; }
+  .trust-side {
+    border-radius: 16px; overflow: hidden;
+    background: url(${trustUrl}) center/cover no-repeat;
+    min-height: 420px;
+    box-shadow: 0 20px 50px -20px rgba(11,26,46,.35);
+  }
+  @media (max-width: 860px) {
+    .trust-row { grid-template-columns: 1fr; }
+    .trust-side { min-height: 240px; }
+  }
+
+  /* For whom: background image */
+  #forwhom {
+    background-image: linear-gradient(180deg, rgba(11,26,46,.92) 0%, rgba(11,26,46,.88) 100%), url(${clientsBgUrl}) !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+  }
+  .whom-card { background: rgba(255,255,255,.06) !important; backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,.08); }
+  .whom-icon { display: none !important; }
 `;
+
+// Wrap trust-doc + side image in a grid inside the trust section
+const bodyWithExtras = rawBody.replace(
+  /<section id="trust">([\s\S]*?)<\/section>/,
+  (_m, inner) => {
+    const idx = inner.indexOf('<div class="trust-doc">');
+    if (idx === -1) return `<section id="trust">${inner}</section>`;
+    const head = inner.slice(0, idx);
+    const doc = inner.slice(idx);
+    return `<section id="trust">${head}<div class="trust-row">${doc}<div class="trust-side" aria-hidden="true"></div></div></section>`;
+  }
+);
 
 function Index() {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: rawStyles }} />
       <style dangerouslySetInnerHTML={{ __html: overrideStyles }} />
-      <div dangerouslySetInnerHTML={{ __html: rawBody }} />
+      <div dangerouslySetInnerHTML={{ __html: bodyWithExtras }} />
     </>
   );
 }
