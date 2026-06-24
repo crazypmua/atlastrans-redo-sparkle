@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import siteHtml from "../../public/site.html?raw";
 import logoUrl from "../assets/logo.png";
 import heroUrl from "../assets/hero-logistics.jpg";
@@ -88,6 +89,48 @@ const bodyWithExtras = rawBody.replace(
 );
 
 function Index() {
+  useEffect(() => {
+    const form = document.querySelector<HTMLFormElement>(".form-box form");
+    const phone = document.querySelector<HTMLInputElement>("#phone");
+    if (!form || !phone) return;
+
+    // Mask: keep "+" and digits only, format as +38 (0XX) XXX XX XX
+    const format = (raw: string) => {
+      let d = raw.replace(/\D/g, "");
+      if (d.startsWith("380")) d = d.slice(3);
+      if (d.startsWith("0")) d = d.slice(1);
+      d = d.slice(0, 9);
+      let out = "+38";
+      if (d.length > 0) out += " (0" + d.slice(0, 2);
+      if (d.length >= 2) out += ")";
+      if (d.length > 2) out += " " + d.slice(2, 5);
+      if (d.length > 5) out += " " + d.slice(5, 7);
+      if (d.length > 7) out += " " + d.slice(7, 9);
+      return out;
+    };
+    const onInput = () => { phone.value = format(phone.value); phone.setCustomValidity(""); };
+    phone.addEventListener("input", onInput);
+
+    const onSubmit = (e: Event) => {
+      const digits = phone.value.replace(/\D/g, "");
+      // Expect 12 digits: 380 + 9 more
+      const ok = /^380\d{9}$/.test(digits);
+      if (!ok) {
+        e.preventDefault();
+        phone.setCustomValidity("Введіть коректний номер у форматі +38 (0XX) XXX XX XX");
+        phone.reportValidity();
+        phone.focus();
+      } else {
+        phone.setCustomValidity("");
+      }
+    };
+    form.addEventListener("submit", onSubmit);
+    return () => {
+      phone.removeEventListener("input", onInput);
+      form.removeEventListener("submit", onSubmit);
+    };
+  }, []);
+
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: rawStyles }} />
