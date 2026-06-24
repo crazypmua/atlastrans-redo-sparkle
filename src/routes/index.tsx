@@ -60,10 +60,16 @@ const overrideStyles = `
   .whom-icon { display: none !important; }
 `;
 
-// Wrap trust-doc with a grid containing a side image
+// Wrap trust-doc + side image in a grid inside the trust section
 const bodyWithExtras = rawBody.replace(
-  /(<div class="trust-doc">[\s\S]*?<\/div>\s*<\/div>\s*<\/div>)/,
-  `<div class="trust-row">$1<div class="trust-side" aria-hidden="true"></div></div>`
+  /<section id="trust">([\s\S]*?)<\/section>/,
+  (_m, inner) => {
+    const idx = inner.indexOf('<div class="trust-doc">');
+    if (idx === -1) return `<section id="trust">${inner}</section>`;
+    const head = inner.slice(0, idx);
+    const doc = inner.slice(idx);
+    return `<section id="trust">${head}<div class="trust-row">${doc}<div class="trust-side" aria-hidden="true"></div></div></section>`;
+  }
 );
 
 function Index() {
