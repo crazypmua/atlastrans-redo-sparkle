@@ -25,6 +25,21 @@ const rawBody = (bodyMatch ? bodyMatch[1] : "")
   .replace(/(["'(])\/?hero-logistics\.jpg/g, `$1${heroUrl}`);
 
 const overrideStyles = `
+  /* Logo: blend navy background with dark navbar so only white mark shows */
+  nav .logo img, footer .f-logo img {
+    mix-blend-mode: screen;
+  }
+  nav .logo img { height: 52px !important; }
+  nav .logo::after {
+    content: "ATLAS TRANS";
+    margin-left: .7rem;
+    font-weight: 800;
+    letter-spacing: .14em;
+    font-size: 1rem;
+    color: #fff;
+  }
+  footer .f-logo img { height: 44px !important; }
+
   #hero {
     background-image: linear-gradient(115deg, rgba(11,26,46,.92) 0%, rgba(18,48,92,.78) 45%, rgba(11,26,46,.55) 75%, rgba(11,26,46,.85) 100%), url(${heroUrl});
     background-size: cover;
