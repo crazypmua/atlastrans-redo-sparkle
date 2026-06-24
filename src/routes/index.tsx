@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect } from "react";
+import siteHtml from "../../public/site.html?raw";
+import logoUrl from "../assets/logo.png";
+import heroUrl from "../assets/hero-logistics.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -13,11 +15,18 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+const styleMatch = siteHtml.match(/<style>([\s\S]*?)<\/style>/);
+const bodyMatch = siteHtml.match(/<body>([\s\S]*?)<\/body>/);
+const rawStyles = styleMatch ? styleMatch[1] : "";
+const rawBody = (bodyMatch ? bodyMatch[1] : "")
+  .replace(/\/logo\.png/g, logoUrl)
+  .replace(/\/hero-logistics\.jpg/g, heroUrl);
+
 function Index() {
-  useEffect(() => {
-    window.location.replace("/site.html");
-  }, []);
   return (
-    <div style={{ minHeight: "100vh", background: "#0b1a2e" }} />
+    <>
+      <style dangerouslySetInnerHTML={{ __html: rawStyles }} />
+      <div dangerouslySetInnerHTML={{ __html: rawBody }} />
+    </>
   );
 }
