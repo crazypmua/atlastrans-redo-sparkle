@@ -61,7 +61,31 @@
       background: radial-gradient(circle, rgba(37,99,176,.18) 0%, transparent 70%);
       pointer-events: none;
     }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 4rem; align-items: center; width: 100%; position: relative; z-index: 2; }
     .hero-inner { max-width: 660px; position: relative; }
+    .hero-visual {
+      position: relative; border-radius: 18px; overflow: hidden;
+      box-shadow: 0 30px 80px -20px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.08);
+      aspect-ratio: 4/3;
+    }
+    .hero-visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-visual::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(11,26,46,.55) 100%);
+    }
+    .hero-badge {
+      position: absolute; left: 1.2rem; bottom: 1.2rem; z-index: 2;
+      background: rgba(11,26,46,.75); backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,.12); color: #fff;
+      padding: .55rem .9rem; border-radius: 8px;
+      font-size: .78rem; font-weight: 600; letter-spacing: .02em;
+      display: flex; align-items: center; gap: .55rem;
+    }
+    .hero-badge::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); }
+    @media (max-width: 960px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-visual { aspect-ratio: 16/10; }
+    }
     .hero-company {
       font-size: .8rem; font-weight: 700; letter-spacing: .2em;
       text-transform: uppercase; color: rgba(255,255,255,.45);
@@ -162,22 +186,55 @@
     /* ── TRUST ── */
     #trust { background: var(--light); }
     .trust-doc {
-      max-width: 520px;
+      max-width: 760px;
       background: var(--white); border: 1px solid var(--border);
-      border-radius: 14px; padding: 2.2rem; position: relative;
+      border-radius: 16px; padding: 0; position: relative;
+      box-shadow: 0 20px 60px -30px rgba(18,48,92,.25);
+      overflow: hidden;
     }
     .trust-doc::before {
       content: '';
       position: absolute; top: 0; left: 0; right: 0; height: 4px;
       background: linear-gradient(90deg, var(--accent), var(--cyan));
-      border-radius: 14px 14px 0 0;
     }
-    .trust-doc-label { font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; }
-    .trust-doc h3 { font-size: 1rem; font-weight: 800; color: var(--navy); margin-bottom: 1.4rem; line-height: 1.4; }
-    .trust-field { margin-bottom: .85rem; }
-    .trust-field-label { font-size: .72rem; font-weight: 600; color: var(--gray); text-transform: uppercase; letter-spacing: .08em; margin-bottom: .15rem; }
-    .trust-field-val { font-size: .9rem; color: var(--text); font-weight: 500; }
-    .trust-field-val strong { color: var(--accent); }
+    .trust-head {
+      display: flex; align-items: center; gap: 1.1rem;
+      padding: 1.8rem 2.2rem 1.4rem; border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, #f7fafe, #fff);
+    }
+    .trust-seal {
+      width: 64px; height: 64px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--accent), var(--cyan));
+      color: #fff; display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; box-shadow: 0 8px 20px -6px rgba(37,99,176,.55);
+      border: 3px solid #fff; outline: 1px solid var(--border);
+    }
+    .trust-head-text { flex: 1; min-width: 0; }
+    .trust-doc-label { font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: .35rem; }
+    .trust-doc h3 { font-size: 1.05rem; font-weight: 800; color: var(--navy); line-height: 1.4; }
+    .trust-verified {
+      display: inline-flex; align-items: center; gap: .35rem;
+      font-size: .72rem; font-weight: 700; color: #0a8a4a;
+      background: #e7f6ee; padding: .3rem .6rem; border-radius: 999px;
+      margin-top: .55rem;
+    }
+    .trust-body {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.4rem 2rem; padding: 1.8rem 2.2rem 2rem;
+    }
+    .trust-field { margin: 0; }
+    .trust-field-label { font-size: .7rem; font-weight: 600; color: var(--gray); text-transform: uppercase; letter-spacing: .08em; margin-bottom: .3rem; }
+    .trust-field-val { font-size: .95rem; color: var(--text); font-weight: 500; }
+    .trust-field-val strong { color: var(--accent); font-family: 'SF Mono', Menlo, monospace; letter-spacing: .02em; }
+    .trust-foot {
+      padding: 1rem 2.2rem; border-top: 1px solid var(--border);
+      background: #fafcff; font-size: .78rem; color: var(--gray);
+      display: flex; align-items: center; gap: .5rem;
+    }
+    @media (max-width: 600px) {
+      .trust-body { grid-template-columns: 1fr; }
+      .trust-head, .trust-body, .trust-foot { padding-left: 1.4rem; padding-right: 1.4rem; }
+    }
 
     /* ── CONTACT ── */
     #contact {
@@ -262,16 +319,22 @@
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-inner">
-    <div class="hero-company">Atlas Trans</div>
-    <h1>Ваш брокерський відділ <em>на аутсорсі</em></h1>
-    <p>Вам не потрібно тримати митного брокера або менеджера ЗЕД у штаті. Ви ставите задачу — ми беремо на себе митне оформлення, документи, сертифікацію, комунікацію з митницею та супровід поставки до результату.</p>
-    <div class="hero-auth">
-      <span class="hero-auth-dot"></span>
-      Авторизований митний брокер України · Авторизація № UACBR126002924
+  <div class="hero-grid">
+    <div class="hero-inner">
+      <div class="hero-company">Atlas Trans</div>
+      <h1>Ваш брокерський відділ <em>на аутсорсі</em></h1>
+      <p>Вам не потрібно тримати митного брокера або менеджера ЗЕД у штаті. Ви ставите задачу — ми беремо на себе митне оформлення, документи, сертифікацію, комунікацію з митницею та супровід поставки до результату.</p>
+      <div class="hero-auth">
+        <span class="hero-auth-dot"></span>
+        Авторизований митний брокер України · Авторизація № UACBR126002924
+      </div>
+      <a href="#contact" class="hero-cta">Обговорити задачу</a>
+      <p class="hero-note">Відповідаємо протягом робочого дня</p>
     </div>
-    <a href="#contact" class="hero-cta">Обговорити задачу</a>
-    <p class="hero-note">Відповідаємо протягом робочого дня</p>
+    <div class="hero-visual">
+      <img src="hero-logistics.jpg" alt="Контейнерний термінал — імпорт та митне оформлення" />
+      <div class="hero-badge">Море · Авто · Митниця</div>
+    </div>
   </div>
 </section>
 
@@ -409,19 +472,34 @@
   <h2 class="s-title">Авторизований митний брокер</h2>
   <p class="s-lead">Ми діємо офіційно — на підставі авторизації Державної митної служби України.</p>
   <div class="trust-doc">
-    <div class="trust-doc-label">Державна митна служба України</div>
-    <h3>Авторизація на провадження митної брокерської діяльності</h3>
-    <div class="trust-field">
-      <div class="trust-field-label">Номер авторизації</div>
-      <div class="trust-field-val"><strong>UACBR126002924</strong></div>
+    <div class="trust-head">
+      <div class="trust-seal" aria-hidden="true">★</div>
+      <div class="trust-head-text">
+        <div class="trust-doc-label">Державна митна служба України</div>
+        <h3>Авторизація на провадження митної брокерської діяльності</h3>
+        <span class="trust-verified">✓ Діюча авторизація</span>
+      </div>
     </div>
-    <div class="trust-field">
-      <div class="trust-field-label">Підприємство</div>
-      <div class="trust-field-val">ТОВ «АТЛАС ТРАНС+»</div>
+    <div class="trust-body">
+      <div class="trust-field">
+        <div class="trust-field-label">Номер авторизації</div>
+        <div class="trust-field-val"><strong>UACBR126002924</strong></div>
+      </div>
+      <div class="trust-field">
+        <div class="trust-field-label">Статус</div>
+        <div class="trust-field-val">Активна · безстрокова</div>
+      </div>
+      <div class="trust-field">
+        <div class="trust-field-label">Підприємство</div>
+        <div class="trust-field-val">ТОВ «АТЛАС ТРАНС+»</div>
+      </div>
+      <div class="trust-field">
+        <div class="trust-field-label">ЄДРПОУ</div>
+        <div class="trust-field-val">43825232</div>
+      </div>
     </div>
-    <div class="trust-field">
-      <div class="trust-field-label">ЄДРПОУ</div>
-      <div class="trust-field-val">43825232</div>
+    <div class="trust-foot">
+      🛡 Дані можна перевірити в реєстрі Державної митної служби України
     </div>
   </div>
 </section>
