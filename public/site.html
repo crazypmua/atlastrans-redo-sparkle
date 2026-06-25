@@ -161,21 +161,44 @@
 
     /* ── SERVICES ── */
     #services { background: var(--light); }
-    .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.4rem; }
+    .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.75rem; }
     @media (max-width: 760px) { .cards { grid-template-columns: 1fr; } }
     .card {
-      background: var(--white); border: 1px solid var(--border); border-radius: 12px;
-      padding: 2rem 1.8rem; display: flex; flex-direction: column;
-      transition: box-shadow .25s, transform .25s;
+      position: relative; background: var(--white); border: 1px solid rgba(10,22,40,.06);
+      border-radius: 22px; padding: 2.4rem 2rem 2.2rem; overflow: hidden; isolation: isolate;
+      box-shadow: 0 1px 2px rgba(10,22,40,.04), 0 18px 40px -24px rgba(10,22,40,.18);
+      transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease, border-color .35s ease;
+      display: flex; flex-direction: column;
     }
-    .card:hover { box-shadow: 0 12px 36px rgba(10,22,40,.1); transform: translateY(-4px); }
-    .card:nth-child(1) { border-top: 3px solid var(--accent); }
-    .card:nth-child(2) { border-top: 3px solid var(--cyan); }
-    .card:nth-child(3) { border-top: 3px solid var(--gold); }
-    .card:nth-child(4) { border-top: 3px solid var(--navy); }
-    .card-num { font-size: .7rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.1rem; }
-    .card h3 { font-size: 1.1rem; font-weight: 800; color: var(--navy); margin-bottom: .5rem; line-height: 1.3; }
-    .card-desc { font-size: .9rem; color: var(--gray); margin-bottom: 1.4rem; line-height: 1.65; }
+    .card::before {
+      content:""; position:absolute; inset:0; z-index:-1; opacity:0;
+      background: radial-gradient(120% 80% at 100% 0%, var(--c-tint, rgba(11,26,46,.06)) 0%, transparent 55%);
+      transition: opacity .4s ease;
+    }
+    .card::after {
+      content:""; position:absolute; left:0; right:0; top:0; height:4px;
+      background: var(--c-bar, var(--accent));
+      transform: scaleX(.18); transform-origin: left;
+      transition: transform .5s cubic-bezier(.2,.7,.2,1);
+    }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 2px 4px rgba(10,22,40,.05), 0 28px 60px -22px rgba(10,22,40,.28); border-color: rgba(10,22,40,.1); }
+    .card:hover::before { opacity: 1; }
+    .card:hover::after { transform: scaleX(1); }
+    .card:nth-child(1) { --c-bar: linear-gradient(90deg,#0b1a2e,#2563eb); --c-tint: rgba(37,99,235,.10); --c-icon:#2563eb; }
+    .card:nth-child(2) { --c-bar: linear-gradient(90deg,#0891b2,#06b6d4); --c-tint: rgba(8,145,178,.10); --c-icon:#0891b2; }
+    .card:nth-child(3) { --c-bar: linear-gradient(90deg,#d97706,#f5a623); --c-tint: rgba(245,166,35,.12); --c-icon:#d97706; }
+    .card:nth-child(4) { --c-bar: linear-gradient(90deg,#0b1a2e,#475569); --c-tint: rgba(71,85,105,.10); --c-icon:#334155; }
+    .card-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.4rem; }
+    .card-icon {
+      width:56px; height:56px; border-radius:14px; display:grid; place-items:center;
+      color: var(--c-icon);
+      background: color-mix(in oklab, var(--c-icon) 12%, transparent);
+      box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--c-icon) 20%, transparent);
+    }
+    .card-icon svg { width:28px; height:28px; }
+    .card-num { font-size:.72rem; font-weight:700; letter-spacing:.22em; color: rgba(10,22,40,.32); font-variant-numeric: tabular-nums; }
+    .card h3 { font-size:1.35rem; font-weight:700; color: var(--navy); margin-bottom:.7rem; line-height:1.25; letter-spacing:-.01em; }
+    .card-desc { font-size:.95rem; color: var(--gray); margin-bottom:0; line-height:1.7; }
     .card-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; margin-top: auto; }
     .card-list li { font-size: .85rem; color: var(--text); display: flex; align-items: center; gap: .55rem; }
     .card-list li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
@@ -414,22 +437,42 @@
   <h2 class="s-title center">Що входить в наш периметр</h2>
   <div class="cards">
     <div class="card reveal">
-      <div class="card-num">01</div>
+      <div class="card-head">
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M9 14l2 2 4-4"/></svg>
+        </div>
+        <span class="card-num">01</span>
+      </div>
       <h3>Митне декларування</h3>
       <p class="card-desc">Оформлюємо імпорт, експорт, транзит та інші митні режими по всій території України. Готуємо декларації, перевіряємо документи, визначаємо коди УКТ ЗЕД та супроводжуємо оформлення до випуску товару.</p>
     </div>
     <div class="card reveal reveal-delay-1">
-      <div class="card-num">02</div>
+      <div class="card-head">
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11l3 4h4v6h-2"/><path d="M3 7v10h2"/><circle cx="7.5" cy="17.5" r="2"/><circle cx="17.5" cy="17.5" r="2"/></svg>
+        </div>
+        <span class="card-num">02</span>
+      </div>
       <h3>Імпорт під ключ</h3>
       <p class="card-desc">Працюємо за договором комісії та беремо на себе весь процес закупівлі товару: пошук постачальника, укладення контракту, міжнародні платежі, логістику, митне оформлення та передачу товару клієнту.</p>
     </div>
     <div class="card reveal reveal-delay-2">
-      <div class="card-num">03</div>
+      <div class="card-head">
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 2 3-.5 1 3 2.5 1.8L20 11l1.5 2.7L19 16l-1 3-3-.5L12 21l-3-2.5L6 19l-1-3-2.5-2.3L4 11 2.5 8.3 5 6.5l1-3L9 4z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <span class="card-num">03</span>
+      </div>
       <h3>Сертифікація та дозвільні документи</h3>
       <p class="card-desc">Організовуємо отримання сертифікатів відповідності, декларацій, висновків та інших документів, необхідних для законного імпорту товарів.</p>
     </div>
     <div class="card reveal reveal-delay-3">
-      <div class="card-num">04</div>
+      <div class="card-head">
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V6a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 10h8M8 13h5"/></svg>
+        </div>
+        <span class="card-num">04</span>
+      </div>
       <h3>Консалтинг із ЗЕД</h3>
       <p class="card-desc">Допомагаємо правильно підготувати зовнішньоекономічну операцію ще до відправлення товару. Аналізуємо документи, перевіряємо умови поставки, визначаємо код УКТ ЗЕД, розраховуємо митні платежі та перелік необхідних дозвільних документів. Це дозволяє уникнути затримок, додаткових витрат і помилок під час митного оформлення.</p>
     </div>
