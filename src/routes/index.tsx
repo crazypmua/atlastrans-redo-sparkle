@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect } from "react";
-import siteHtml from "../../public/site.html?raw";
+import siteHtml from "../content/site.html?raw";
 import logoUrl from "../assets/logo.png";
 import heroUrl from "../assets/hero-logistics.jpg";
 import trustUrl from "../assets/trust-broker.jpg";
