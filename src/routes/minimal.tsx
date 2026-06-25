@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import heroUrl from "../assets/hero-logistics.jpg";
 import logoUrl from "../assets/logo.png";
+import clientsBgUrl from "../assets/clients-bg.jpg";
 
 export const Route = createFileRoute("/minimal")({
   head: () => ({
@@ -82,6 +83,15 @@ function MinimalPage() {
         .mn-footer{background:#0a1c33;color:rgba(255,255,255,.7);padding:48px 0 32px;font-size:14px}
         .mn-footer-grid{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
         .mn-footer img{height:36px}
+        .mn-clients{position:relative;padding:100px 0;color:#fff;background:linear-gradient(rgba(10,28,51,.86),rgba(10,28,51,.92)),url(${clientsBgUrl}) center/cover}
+        .mn-clients h2{color:#fff}
+        .mn-clients .mn-section-head p{color:rgba(255,255,255,.78)}
+        .mn-clients .mn-rule{background:${ACCENT}}
+        .mn-clients-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+        .mn-client{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:28px 30px;backdrop-filter:blur(4px)}
+        .mn-client h3{font-family:"Playfair Display",Georgia,serif;font-size:20px;margin:0 0 10px;color:#fff;font-weight:700}
+        .mn-client p{color:rgba(255,255,255,.78);font-size:15px;line-height:1.6;margin:0}
+        @media (max-width:720px){.mn-clients-grid{grid-template-columns:1fr}}
         @media (max-width:880px){
           .mn-stats-grid,.mn-cards-3,.mn-cards-4{grid-template-columns:1fr 1fr}
           .mn-why{grid-template-columns:1fr}
@@ -213,6 +223,30 @@ function MinimalPage() {
             ].map((t) => (
               <div key={t} className="mn-why-item">
                 <Check /> <span>{t}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CLIENTS */}
+      <section className="mn-clients" id="clients">
+        <div className="mn-wrap">
+          <div className="mn-section-head">
+            <h2 className="mn-serif">Хто наш клієнт</h2>
+            <p>Ми підходимо компаніям, яким ЗЕД потрібен як результат — без зайвих витрат і складнощів.</p>
+            <div className="mn-rule" />
+          </div>
+          <div className="mn-clients-grid">
+            {[
+              { t: "Компанії, що виходять на імпорт", d: "Перша поставка — завжди найскладніша. Ми проведемо через весь процес від А до Я і пояснимо кожен крок." },
+              { t: "Торгові компанії без відділу ЗЕД", d: "Займаєтесь продажами, а не митним оформленням? Правильно. Ми закриваємо ЗЕД — ви займаєтесь бізнесом." },
+              { t: "Малий та середній бізнес", d: "Тримати штатного брокера невигідно при нерегулярних поставках. Ми обходимось дешевше і закриваємо більше задач." },
+              { t: "Виробники та підприємці", d: "Закуповуєте сировину або компоненти за кордоном? Організуємо повний цикл — від постачальника до вашого складу." },
+            ].map((c) => (
+              <div key={c.t} className="mn-client">
+                <h3>{c.t}</h3>
+                <p>{c.d}</p>
               </div>
             ))}
           </div>
