@@ -16,8 +16,8 @@ export const Route = createFileRoute("/minimal")({
   component: MinimalPage,
 });
 
-const NAVY = "#0c2340";
-const NAVY_2 = "#13355c";
+const NAVY = "oklch(0.21 0.09 260)";
+const NAVY_2 = "oklch(0.28 0.09 260)";
 const ACCENT = "#c9a84c";
 
 function MinimalPage() {
