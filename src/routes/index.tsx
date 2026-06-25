@@ -202,6 +202,16 @@ bodyWithExtras = bodyWithExtras.replace(/<section id="hero">[\s\S]*?<\/section>/
 // Make every #contact link open the modal
 bodyWithExtras = bodyWithExtras.replace(/href="#contact"/g, 'href="#contact" data-open-contact');
 
+// Auto-add reveal classes to common blocks
+bodyWithExtras = bodyWithExtras
+  .replace(/<h2(\s)/g, '<h2 class="reveal"$1')
+  .replace(/<h2>/g, '<h2 class="reveal">')
+  .replace(/class="card(\s|")/g, 'class="card reveal-zoom$1')
+  .replace(/class="why-card(\s|")/g, 'class="why-card reveal$1')
+  .replace(/class="whom-card(\s|")/g, 'class="whom-card reveal-zoom$1')
+  .replace(/class="trust-doc(\s|")/g, 'class="trust-doc reveal-left$1')
+  .replace(/<div class="trust-side"/, '<div class="trust-side reveal-right"');
+
 function Index() {
   useEffect(() => {
     // Reveal-on-scroll
