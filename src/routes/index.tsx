@@ -177,7 +177,7 @@ const newHero = `
       </ul>
       <button type="button" class="hero-cta reveal reveal-delay-4" data-open-contact>Обговорити задачу</button>
       <div class="hero-license reveal reveal-delay-5">
-        <span class="hero-auth-dot" style="width:10px;height:10px;border-radius:50%;background:#22c55e;display:inline-block;"></span>
+        <span class="hero-auth-dot" style="width:6px;height:6px;border-radius:50%;background:#22c55e;display:inline-block;"></span>
         <span><b>Авторизований митний брокер</b><small>Ліцензія № UACBR126002924</small></span>
       </div>
     </div>
