@@ -27,7 +27,7 @@ function MinimalPage() {
         .mn-wrap{max-width:1200px;margin:0 auto;padding:0 24px}
         .mn-serif{font-family:"Playfair Display","Cormorant Garamond",Georgia,serif;font-weight:700;letter-spacing:-.01em}
         .mn-nav{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #eef1f5}
-        .mn-nav-inner{display:flex;align-items:center;justify-content:space-between;height:78px}
+        .mn-nav-inner{display:flex;align-items:center;justify-content:space-between;height:140px}
         .mn-nav a.mn-link{color:#0f172a;font-size:15px;margin-left:32px;text-decoration:none;font-weight:500}
         .mn-nav a.mn-link:hover{color:${NAVY}}
         .mn-nav a.mn-link.active{color:${NAVY};font-weight:600}
@@ -45,7 +45,7 @@ function MinimalPage() {
         .mn-stats{background:${NAVY_2};padding:48px 0;color:#fff}
         .mn-stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
         .mn-stat-icon{display:inline-flex;width:36px;height:36px;align-items:center;justify-content:center;color:rgba(255,255,255,.7);margin-bottom:12px}
-        .mn-stat-num{font-family:"Playfair Display",Georgia,serif;font-size:48px;font-weight:600;line-height:1}
+        .mn-stat-num{font-family:"Playfair Display",Georgia,serif;font-size:28px;font-weight:600;line-height:1}
         .mn-stat-lbl{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-top:8px}
         .mn-section{padding:100px 0;background:#f7f9fb}
         .mn-section.white{background:#fff}
@@ -92,7 +92,7 @@ function MinimalPage() {
       {/* NAV */}
       <header className="mn-nav">
         <div className="mn-wrap mn-nav-inner">
-          <img src={logoUrl} alt="Atlas Trans" style={{ height: 44 }} />
+          <img src={logoUrl} alt="Atlas Trans" style={{ height: 130 }} />
           <nav>
             <a href="#about" className="mn-link active">Головна</a>
             <a href="#services" className="mn-link">Послуги</a>
