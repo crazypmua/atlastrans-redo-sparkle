@@ -1,15 +1,58 @@
-// @lovable.dev/vite-tanstack-config already includes the following — do NOT add them manually
-// or the app will break with duplicate plugins:
-//   - tanstackStart, viteReact, tailwindcss, tsConfigPaths, nitro (build-only using cloudflare as a default target),
-//     componentTagger (dev-only), VITE_* env injection, @ path alias, React/TanStack dedupe,
-//     error logger plugins, and sandbox detection (port/host/strictPort).
-// You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import { readFileSync, writeFileSync, readdirSync, unlinkSync, existsSync } from "node:fs";
+import { join } from "node:path";
+import { buildStaticHtml } from "./src/lib/site-markup";
 
 export default defineConfig({
   tanstackStart: {
-    // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-    // nitro/vite builds from this
     server: { entry: "server" },
+  },
+  vite: {
+    plugins: [
+      {
+        name: "generate-static-index",
+        closeBundle() {
+          const clientDir = join(process.cwd(), "dist", "client");
+          const assetsDir = join(clientDir, "assets");
+          if (!existsSync(assetsDir)) return;
+
+          const findAsset = (prefix: string, ext: string) => {
+            const file = readdirSync(assetsDir).find(
+              (name) => name.startsWith(prefix) && name.endsWith(ext),
+            );
+            if (!file) throw new Error(`Asset not found: ${prefix}*${ext}`);
+            return `./assets/${file}`;
+          };
+
+          const assets = {
+            logo: findAsset("logo-", ".png"),
+            hero: findAsset("hero-logistics-", ".jpg"),
+            trust: findAsset("trust-broker-", ".jpg"),
+            clientsBg: findAsset("clients-bg-", ".jpg"),
+          };
+
+          const siteHtml = readFileSync(
+            join(process.cwd(), "src", "content", "site.html"),
+            "utf8",
+          );
+          const html = buildStaticHtml(siteHtml, assets);
+          writeFileSync(join(clientDir, "index.html"), html, "utf8");
+
+          for (const stale of [
+            "site.html",
+            "client-preview.html",
+            "logo.png",
+            "hero-logistics.jpg",
+            "trust-broker.jpg",
+            "clients-bg.jpg",
+          ]) {
+            const path = join(clientDir, stale);
+            if (existsSync(path)) unlinkSync(path);
+          }
+
+          console.log("✓ Generated dist/client/index.html (static, Lovable layout)");
+        },
+      },
+    ],
   },
 });
