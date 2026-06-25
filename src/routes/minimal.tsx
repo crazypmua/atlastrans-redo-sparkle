@@ -26,11 +26,14 @@ function MinimalPage() {
       <style>{`
         .mn-wrap{max-width:1200px;margin:0 auto;padding:0 24px}
         .mn-serif{font-family:"Playfair Display","Cormorant Garamond",Georgia,serif;font-weight:700;letter-spacing:-.01em}
-        .mn-nav{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #eef1f5}
-        .mn-nav-inner{display:flex;align-items:center;justify-content:space-between;height:140px}
-        .mn-nav a.mn-link{color:#0f172a;font-size:15px;margin-left:32px;text-decoration:none;font-weight:500}
-        .mn-nav a.mn-link:hover{color:${NAVY}}
-        .mn-nav a.mn-link.active{color:${NAVY};font-weight:600}
+        .mn-nav{position:sticky;top:0;z-index:50;background:${NAVY};border-bottom:1px solid rgba(255,255,255,.08);transition:background .3s ease}
+        .mn-nav-inner{display:flex;align-items:center;justify-content:space-between;height:140px;transition:height .3s ease}
+        .mn-nav-logo{height:130px;transition:height .3s ease}
+        .mn-nav.shrunk .mn-nav-inner{height:56px}
+        .mn-nav.shrunk .mn-nav-logo{height:40px}
+        .mn-nav a.mn-link{color:rgba(255,255,255,.78);font-size:15px;margin-left:32px;text-decoration:none;font-weight:500;transition:color .2s}
+        .mn-nav a.mn-link:hover{color:#fff}
+        .mn-nav a.mn-link.active{color:#fff;font-weight:600}
         .mn-hero{position:relative;background:linear-gradient(rgba(12,35,64,.78),rgba(12,35,64,.85)),url(${heroUrl}) center/cover;color:#fff;padding:120px 0 0}
         .mn-hero-eyebrow{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:24px}
         .mn-hero h1{font-size:clamp(44px,6vw,84px);line-height:1.02;margin:0 0 20px}
@@ -90,9 +93,9 @@ function MinimalPage() {
       `}</style>
 
       {/* NAV */}
-      <header className="mn-nav">
+      <header className="mn-nav" id="mn-nav">
         <div className="mn-wrap mn-nav-inner">
-          <img src={logoUrl} alt="Atlas Trans" style={{ height: 130 }} />
+          <img src={logoUrl} alt="Atlas Trans" className="mn-nav-logo" />
           <nav>
             <a href="#about" className="mn-link active">Головна</a>
             <a href="#services" className="mn-link">Послуги</a>
@@ -239,6 +242,11 @@ function MinimalPage() {
           <Link to="/" style={{ color: "rgba(255,255,255,.7)" }}>← На основну версію</Link>
         </div>
       </footer>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `(function(){var n=document.getElementById('mn-nav');if(!n)return;var on=function(){if(window.scrollY>40)n.classList.add('shrunk');else n.classList.remove('shrunk')};window.addEventListener('scroll',on,{passive:true});on();})();`,
+        }}
+      />
     </div>
   );
 }
