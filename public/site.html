@@ -145,7 +145,8 @@
 
     /* ── WHY OUTSOURCE ── */
     #why { background: var(--white); }
-    .why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+    @media (max-width: 980px) { .why-grid { grid-template-columns: repeat(2, 1fr); } }
     .why-item {
       display: flex; gap: 1.1rem; align-items: flex-start;
       padding: 1.5rem; border: 1px solid var(--border); border-radius: 10px;
@@ -359,43 +360,49 @@
 <!-- WHY OUTSOURCE -->
 <section id="why">
   <div class="eyebrow">Чому аутсорс</div>
-  <h2 class="s-title">Чому бізнес передає ЗЕД на аутсорс</h2>
-  <p class="s-lead">Власний спеціаліст потрібен не кожній компанії. Якщо поставки нерегулярні або задачі різні — вигідніше мати зовнішню команду, яка підключається під конкретну потребу.</p>
+  <h2 class="s-title">Чому компанії передають ЗЕД на аутсорс?</h2>
+  <p class="s-lead"><strong style="color:var(--navy)">Власний відділ ЗЕД потрібен не кожному бізнесу.</strong><br/>Якщо поставки не є щоденними або обсяг роботи змінюється протягом року, аутсорсинг ЗЕД дозволяє скоротити витрати та отримати доступ до досвіду цілої команди без утримання власних спеціалістів.</p>
   <div class="why-grid">
-    <div class="why-item">
-      <div class="why-icon">
-        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-      </div>
+    <div class="why-item reveal">
+      <div class="why-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
       <div>
-        <strong>Платите за результат, не за присутність</strong>
-        <span>Не потрібно утримувати спеціаліста щомісяця — ви залучаєте нас під конкретну поставку або задачу.</span>
+        <strong>Оплачуєте результат, а не зарплату</strong>
+        <span>Не потрібно утримувати митного брокера, менеджера ЗЕД, оплачувати податки, відпустки та навчання. Ви сплачуєте лише за виконану роботу.</span>
       </div>
     </div>
-    <div class="why-item">
-      <div class="why-icon">
-        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      </div>
+    <div class="why-item reveal reveal-delay-1">
+      <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
       <div>
-        <strong>Досвід, якого не дасть один штатний фахівець</strong>
-        <span>За плечима — сотні різних поставок, нестандартних ситуацій і вирішених питань з митницею.</span>
+        <strong>Команда замість одного спеціаліста</strong>
+        <span>Над поставкою працюють брокери, фахівці із ЗЕД, логісти та спеціалісти із сертифікації. Вам не потрібно шукати окремих виконавців.</span>
       </div>
     </div>
-    <div class="why-item">
-      <div class="why-icon">
-        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-      </div>
+    <div class="why-item reveal reveal-delay-2">
+      <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
       <div>
-        <strong>Один підрядник замість кількох</strong>
-        <span>Брокер, логіст, сертифікація — все в одному місці. Не потрібно координувати різних виконавців.</span>
+        <strong>Досвід складних поставок</strong>
+        <span>Ми щодня працюємо з різними товарами, країнами та митними процедурами. Це дозволяє швидше знаходити рішення навіть у нестандартних ситуаціях.</span>
       </div>
     </div>
-    <div class="why-item">
-      <div class="why-icon">
-        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-      </div>
+    <div class="why-item reveal reveal-delay-3">
+      <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M20 7h-3V5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/></svg></div>
       <div>
-        <strong>Офіційно та з повною відповідальністю</strong>
-        <span>Авторизований митний брокер подає декларації від свого імені і несе юридичну відповідальність за оформлення.</span>
+        <strong>Один партнер для всіх задач</strong>
+        <span>Імпорт за договором комісії, митне оформлення, сертифікація та супровід ЗЕД — усе в одному місці.</span>
+      </div>
+    </div>
+    <div class="why-item reveal reveal-delay-4">
+      <div class="why-icon"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+      <div>
+        <strong>Масштабується разом із бізнесом</strong>
+        <span>Потрібно оформити одну поставку чи двадцять — вам не потрібно розширювати штат або шукати нових спеціалістів.</span>
+      </div>
+    </div>
+    <div class="why-item reveal reveal-delay-5">
+      <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
+      <div>
+        <strong>Менше ризиків</strong>
+        <span>Правильна підготовка документів, перевірка кодів УКТ ЗЕД та супровід оформлення допомагають уникнути затримок, штрафів і додаткових витрат.</span>
       </div>
     </div>
   </div>
