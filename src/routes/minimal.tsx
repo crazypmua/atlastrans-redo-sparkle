@@ -97,6 +97,26 @@ function MinimalPage() {
         @media (max-width:540px){
           .mn-stats-grid,.mn-cards-3,.mn-cards-4,.mn-why-list{grid-template-columns:1fr}
         }
+        /* Reveal animations */
+        .mn-section-head,.mn-why > div:first-child{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+        .mn-in .mn-section-head,.mn-in.mn-why > div:first-child,.mn-why.mn-in > div:first-child{opacity:1;transform:translateY(0)}
+        .mn-card,.mn-step,.mn-client,.mn-why-item{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease,border-color .25s,box-shadow .25s}
+        .mn-in .mn-card,.mn-in .mn-step,.mn-in .mn-client,.mn-in .mn-why-item{opacity:1;transform:translateY(0)}
+        .mn-in .mn-card:nth-child(2),.mn-in .mn-step:nth-child(2),.mn-in .mn-client:nth-child(2),.mn-in .mn-why-item:nth-child(2){transition-delay:.08s}
+        .mn-in .mn-card:nth-child(3),.mn-in .mn-step:nth-child(3),.mn-in .mn-client:nth-child(3),.mn-in .mn-why-item:nth-child(3){transition-delay:.16s}
+        .mn-in .mn-card:nth-child(4),.mn-in .mn-step:nth-child(4),.mn-in .mn-client:nth-child(4),.mn-in .mn-why-item:nth-child(4){transition-delay:.24s}
+        .mn-in .mn-why-item:nth-child(5){transition-delay:.32s}
+        .mn-in .mn-why-item:nth-child(6){transition-delay:.40s}
+        .mn-hero h1,.mn-hero-sub,.mn-hero-desc,.mn-hero-actions,.mn-hero-eyebrow{opacity:0;transform:translateY(16px);animation:mnFadeUp .8s ease forwards}
+        .mn-hero-eyebrow{animation-delay:.05s}
+        .mn-hero h1{animation-delay:.15s}
+        .mn-hero-sub{animation-delay:.30s}
+        .mn-hero-desc{animation-delay:.42s}
+        .mn-hero-actions{animation-delay:.55s}
+        @keyframes mnFadeUp{to{opacity:1;transform:translateY(0)}}
+        @media (prefers-reduced-motion:reduce){
+          .mn-reveal,.mn-card,.mn-step,.mn-client,.mn-why-item,.mn-hero h1,.mn-hero-sub,.mn-hero-desc,.mn-hero-actions,.mn-hero-eyebrow{opacity:1!important;transform:none!important;animation:none!important}
+        }
       `}</style>
 
       {/* NAV */}
@@ -278,7 +298,7 @@ function MinimalPage() {
       </footer>
       <script
         dangerouslySetInnerHTML={{
-          __html: `(function(){var n=document.getElementById('mn-nav');if(!n)return;var on=function(){if(window.scrollY>40)n.classList.add('shrunk');else n.classList.remove('shrunk')};window.addEventListener('scroll',on,{passive:true});on();})();`,
+          __html: `(function(){var n=document.getElementById('mn-nav');if(n){var on=function(){if(window.scrollY>40)n.classList.add('shrunk');else n.classList.remove('shrunk')};window.addEventListener('scroll',on,{passive:true});on();}if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('mn-in');io.unobserve(e.target);}});},{threshold:0.15,rootMargin:'0px 0px -60px 0px'});document.querySelectorAll('.mn-section, .mn-stats, .mn-cta').forEach(function(el){io.observe(el);});}else{document.querySelectorAll('.mn-section, .mn-stats, .mn-cta').forEach(function(el){el.classList.add('mn-in');});}})();`,
         }}
       />
     </div>
