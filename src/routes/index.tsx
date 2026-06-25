@@ -204,8 +204,9 @@ bodyWithExtras = bodyWithExtras.replace(/href="#contact"/g, 'href="#contact" dat
 
 // Auto-add reveal classes to common blocks
 bodyWithExtras = bodyWithExtras
-  .replace(/<h2(\s)/g, '<h2 class="reveal"$1')
+  .replace(/<h2(\s+class=")([^"]*)"/g, '<h2$1$2 reveal"')
   .replace(/<h2>/g, '<h2 class="reveal">')
+  .replace(/<h2(\s+)(?!class=)/g, '<h2 class="reveal"$1')
   .replace(/class="card(\s|")/g, 'class="card reveal-zoom$1')
   .replace(/class="why-card(\s|")/g, 'class="why-card reveal$1')
   .replace(/class="whom-card(\s|")/g, 'class="whom-card reveal-zoom$1')
