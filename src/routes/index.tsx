@@ -116,15 +116,29 @@ const overrideStyles = `
   .hero-license small { font-size: .72rem; opacity: .8; margin-left: .35rem; }
 
   /* ===== Reveal-on-scroll animations ===== */
-  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
-  .reveal.is-visible { opacity: 1; transform: none; }
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .9s cubic-bezier(.2,.7,.2,1); will-change: opacity, transform; }
+  .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity .8s ease, transform .9s cubic-bezier(.2,.7,.2,1); }
+  .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity .8s ease, transform .9s cubic-bezier(.2,.7,.2,1); }
+  .reveal-zoom { opacity: 0; transform: scale(.92); transition: opacity .7s ease, transform .8s cubic-bezier(.2,.8,.2,1); }
+  .reveal.is-visible, .reveal-left.is-visible, .reveal-right.is-visible, .reveal-zoom.is-visible { opacity: 1; transform: none; }
   .reveal-delay-1 { transition-delay: .08s; }
   .reveal-delay-2 { transition-delay: .18s; }
   .reveal-delay-3 { transition-delay: .28s; }
   .reveal-delay-4 { transition-delay: .38s; }
   .reveal-delay-5 { transition-delay: .48s; }
+  .reveal-delay-6 { transition-delay: .58s; }
+
+  /* Subtle hover lift for cards */
+  .card, .why-card, .whom-card { transition: transform .35s ease, box-shadow .35s ease; }
+  .card:hover, .why-card:hover, .whom-card:hover { transform: translateY(-6px); box-shadow: 0 24px 50px -24px rgba(11,26,46,.35); }
+
+  /* Hero background slow zoom */
+  @keyframes at-hero-zoom { from { background-size: 110% auto; } to { background-size: 118% auto; } }
+  #hero { animation: at-hero-zoom 18s ease-in-out infinite alternate; }
+
   @media (prefers-reduced-motion: reduce) {
-    .reveal { opacity: 1; transform: none; transition: none; }
+    .reveal, .reveal-left, .reveal-right, .reveal-zoom { opacity: 1; transform: none; transition: none; }
+    #hero { animation: none; }
   }
 
   /* ===== Contact modal ===== */
@@ -188,10 +202,26 @@ bodyWithExtras = bodyWithExtras.replace(/<section id="hero">[\s\S]*?<\/section>/
 // Make every #contact link open the modal
 bodyWithExtras = bodyWithExtras.replace(/href="#contact"/g, 'href="#contact" data-open-contact');
 
+// Auto-add reveal classes to common blocks
+bodyWithExtras = bodyWithExtras
+  .replace(/<h2(\s)/g, '<h2 class="reveal"$1')
+  .replace(/<h2>/g, '<h2 class="reveal">')
+  .replace(/class="card(\s|")/g, 'class="card reveal-zoom$1')
+  .replace(/class="why-card(\s|")/g, 'class="why-card reveal$1')
+  .replace(/class="whom-card(\s|")/g, 'class="whom-card reveal-zoom$1')
+  .replace(/class="trust-doc(\s|")/g, 'class="trust-doc reveal-left$1')
+  .replace(/<div class="trust-side"/, '<div class="trust-side reveal-right"');
+
 function Index() {
   useEffect(() => {
     // Reveal-on-scroll
-    const revealEls = document.querySelectorAll<HTMLElement>(".reveal");
+    const revealEls = document.querySelectorAll<HTMLElement>(".reveal, .reveal-left, .reveal-right, .reveal-zoom");
+    // Stagger siblings inside grids
+    document.querySelectorAll<HTMLElement>(".cards, .why-grid, .whom-grid").forEach((grid) => {
+      Array.from(grid.children).forEach((child, i) => {
+        (child as HTMLElement).style.transitionDelay = `${Math.min(i * 90, 540)}ms`;
+      });
+    });
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
