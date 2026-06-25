@@ -1,0 +1,257 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import heroUrl from "../assets/hero-logistics.jpg";
+import logoUrl from "../assets/logo.png";
+
+export const Route = createFileRoute("/minimal")({
+  head: () => ({
+    meta: [
+      { title: "Atlas Trans — ЗЕД, митне оформлення, логістика" },
+      {
+        name: "description",
+        content:
+          "Atlas Trans координує зовнішньоекономічну діяльність: митне оформлення, імпорт під ключ, сертифікація та логістика.",
+      },
+    ],
+  }),
+  component: MinimalPage,
+});
+
+const NAVY = "#0c2340";
+const NAVY_2 = "#13355c";
+const ACCENT = "#c9a84c";
+
+function MinimalPage() {
+  return (
+    <div style={{ fontFamily: '"Inter", system-ui, sans-serif', color: "#0f172a", background: "#fff" }}>
+      <style>{`
+        .mn-wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+        .mn-serif{font-family:"Playfair Display","Cormorant Garamond",Georgia,serif;font-weight:700;letter-spacing:-.01em}
+        .mn-nav{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #eef1f5}
+        .mn-nav-inner{display:flex;align-items:center;justify-content:space-between;height:78px}
+        .mn-nav a.mn-link{color:#0f172a;font-size:15px;margin-left:32px;text-decoration:none;font-weight:500}
+        .mn-nav a.mn-link:hover{color:${NAVY}}
+        .mn-nav a.mn-link.active{color:${NAVY};font-weight:600}
+        .mn-hero{position:relative;background:linear-gradient(rgba(12,35,64,.78),rgba(12,35,64,.85)),url(${heroUrl}) center/cover;color:#fff;padding:120px 0 0}
+        .mn-hero-eyebrow{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:24px}
+        .mn-hero h1{font-size:clamp(44px,6vw,84px);line-height:1.02;margin:0 0 20px}
+        .mn-hero-sub{font-size:22px;color:rgba(255,255,255,.92);margin:0 0 28px;max-width:640px}
+        .mn-hero-desc{font-size:16px;line-height:1.7;color:rgba(255,255,255,.78);max-width:560px;margin:0 0 40px}
+        .mn-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:4px;font-weight:600;font-size:15px;text-decoration:none;transition:all .2s;border:none;cursor:pointer}
+        .mn-btn-primary{background:#fff;color:${NAVY}}
+        .mn-btn-primary:hover{background:${ACCENT};color:${NAVY}}
+        .mn-btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4)}
+        .mn-btn-ghost:hover{background:rgba(255,255,255,.1)}
+        .mn-hero-actions{display:flex;gap:14px;flex-wrap:wrap;padding-bottom:80px}
+        .mn-stats{background:${NAVY_2};padding:48px 0;color:#fff}
+        .mn-stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
+        .mn-stat-icon{display:inline-flex;width:36px;height:36px;align-items:center;justify-content:center;color:rgba(255,255,255,.7);margin-bottom:12px}
+        .mn-stat-num{font-family:"Playfair Display",Georgia,serif;font-size:48px;font-weight:600;line-height:1}
+        .mn-stat-lbl{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-top:8px}
+        .mn-section{padding:100px 0;background:#f7f9fb}
+        .mn-section.white{background:#fff}
+        .mn-section-head{text-align:center;max-width:680px;margin:0 auto 64px}
+        .mn-section-head h2{font-size:clamp(34px,4vw,46px);margin:0 0 16px;color:#0f1b3d}
+        .mn-section-head p{color:#64748b;font-size:17px;line-height:1.6;margin:0 0 18px}
+        .mn-rule{width:64px;height:3px;background:${NAVY};margin:0 auto}
+        .mn-cards-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+        .mn-cards-4{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+        .mn-card{background:#fff;border:1px solid #e5ebf2;border-radius:8px;padding:36px 32px;transition:all .25s}
+        .mn-card:hover{border-color:${NAVY};box-shadow:0 12px 32px -16px rgba(12,35,64,.25);transform:translateY(-2px)}
+        .mn-card-ico{width:48px;height:48px;background:#eef2f7;border-radius:6px;display:flex;align-items:center;justify-content:center;color:${NAVY};margin-bottom:24px}
+        .mn-card h3{font-family:"Playfair Display",Georgia,serif;font-size:22px;margin:0 0 14px;color:#0f1b3d;font-weight:700}
+        .mn-card p{color:#64748b;font-size:15px;line-height:1.6;margin:0 0 18px}
+        .mn-card a{color:${NAVY};font-size:14px;font-weight:600;text-decoration:none}
+        .mn-step{position:relative;background:#fff;border:1px solid #e5ebf2;border-radius:8px;padding:48px 24px 32px;text-align:center;margin-top:18px}
+        .mn-step-num{position:absolute;top:-18px;left:50%;transform:translateX(-50%);background:${NAVY};color:#fff;width:48px;height:32px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;letter-spacing:.1em}
+        .mn-step-ico{color:${NAVY};margin:0 auto 16px;display:flex;justify-content:center}
+        .mn-step h3{font-family:"Playfair Display",Georgia,serif;font-size:20px;margin:0 0 12px;color:#0f1b3d}
+        .mn-step p{color:#64748b;font-size:14px;line-height:1.55;margin:0}
+        .mn-why{display:grid;grid-template-columns:1fr 1.4fr;gap:64px;align-items:start}
+        .mn-why h2{font-size:clamp(32px,3.5vw,44px);margin:0 0 16px;color:#0f1b3d;position:relative;padding-bottom:18px}
+        .mn-why h2::after{content:"";position:absolute;left:0;bottom:0;width:48px;height:3px;background:${NAVY}}
+        .mn-why-desc{color:#64748b;font-size:16px;line-height:1.65;margin-top:24px}
+        .mn-why-list{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+        .mn-why-item{background:#fff;border:1px solid #e5ebf2;border-radius:6px;padding:18px 20px;display:flex;gap:12px;align-items:flex-start;font-size:15px;color:#1e293b;line-height:1.45}
+        .mn-why-item svg{flex-shrink:0;color:${NAVY};margin-top:1px}
+        .mn-cta{background:linear-gradient(rgba(12,35,64,.88),rgba(12,35,64,.92)),url(${heroUrl}) center/cover;color:#fff;padding:100px 0;text-align:center}
+        .mn-cta h2{font-family:"Playfair Display",Georgia,serif;font-size:clamp(32px,4vw,46px);margin:16px 0 18px}
+        .mn-cta p{color:rgba(255,255,255,.85);font-size:17px;max-width:640px;margin:0 auto 32px;line-height:1.6}
+        .mn-footer{background:#0a1c33;color:rgba(255,255,255,.7);padding:48px 0 32px;font-size:14px}
+        .mn-footer-grid{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+        .mn-footer img{height:36px}
+        @media (max-width:880px){
+          .mn-stats-grid,.mn-cards-3,.mn-cards-4{grid-template-columns:1fr 1fr}
+          .mn-why{grid-template-columns:1fr}
+          .mn-nav a.mn-link{margin-left:18px;font-size:14px}
+        }
+        @media (max-width:540px){
+          .mn-stats-grid,.mn-cards-3,.mn-cards-4,.mn-why-list{grid-template-columns:1fr}
+        }
+      `}</style>
+
+      {/* NAV */}
+      <header className="mn-nav">
+        <div className="mn-wrap mn-nav-inner">
+          <img src={logoUrl} alt="Atlas Trans" style={{ height: 44 }} />
+          <nav>
+            <a href="#about" className="mn-link active">Головна</a>
+            <a href="#services" className="mn-link">Послуги</a>
+            <a href="#process" className="mn-link">Процес</a>
+            <a href="#why" className="mn-link">Чому ми</a>
+            <a href="#contact" className="mn-link">Контакти</a>
+          </nav>
+        </div>
+      </header>
+
+      {/* HERO */}
+      <section className="mn-hero">
+        <div className="mn-wrap">
+          <div className="mn-hero-eyebrow">м. Київ, Україна · Ліцензія АЕ №000000</div>
+          <h1 className="mn-serif">ATLAS TRANS</h1>
+          <p className="mn-hero-sub">Відділ ЗЕД на аутсорсі для українського бізнесу</p>
+          <p className="mn-hero-desc">
+            Координуємо митне оформлення, імпорт під ключ, сертифікацію та міжнародну логістику —
+            від першого контакту з постачальником до доставки на ваш склад.
+          </p>
+          <div className="mn-hero-actions">
+            <a href="#contact" className="mn-btn mn-btn-primary">Наші послуги <span>→</span></a>
+            <a href="#contact" className="mn-btn mn-btn-ghost">Звʼязатися</a>
+          </div>
+        </div>
+        {/* STATS */}
+        <div className="mn-stats">
+          <div className="mn-wrap">
+            <div className="mn-stats-grid">
+              {[
+                { n: "10+", l: "Років досвіду", i: <Pin /> },
+                { n: "500+", l: "Оформлених партій", i: <Ship /> },
+                { n: "50+", l: "Постійних клієнтів", i: <People /> },
+                { n: "24/7", l: "Операційна підтримка", i: <Clock /> },
+              ].map((s) => (
+                <div key={s.l}>
+                  <div className="mn-stat-icon">{s.i}</div>
+                  <div className="mn-stat-num">{s.n}</div>
+                  <div className="mn-stat-lbl">{s.l}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* WHAT WE DO */}
+      <section className="mn-section" id="services">
+        <div className="mn-wrap">
+          <div className="mn-section-head">
+            <h2 className="mn-serif">Що ми робимо</h2>
+            <p>Повний цикл зовнішньоекономічної діяльності, що спрощує ваші міжнародні операції.</p>
+            <div className="mn-rule" />
+          </div>
+          <div className="mn-cards-3">
+            {[
+              { t: "Митне декларування", d: "Повний супровід митного оформлення вантажів на імпорт та експорт." , i: <Globe /> },
+              { t: "Імпорт під ключ", d: "Пошук постачальника, контракт, логістика, розмитнення — все в одному вікні.", i: <Ship /> },
+              { t: "Сертифікація", d: "Отримання дозвільних документів та сертифікатів відповідності.", i: <Box /> },
+            ].map((c) => (
+              <div key={c.t} className="mn-card">
+                <div className="mn-card-ico">{c.i}</div>
+                <h3>{c.t}</h3>
+                <p>{c.d}</p>
+                <a href="#contact">Дізнатися більше →</a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* HOW WE WORK */}
+      <section className="mn-section white" id="process">
+        <div className="mn-wrap">
+          <div className="mn-section-head">
+            <h2 className="mn-serif">Як ми працюємо</h2>
+            <p>Чотири кроки — від консультації до доставки.</p>
+            <div className="mn-rule" />
+          </div>
+          <div className="mn-cards-4">
+            {[
+              { t: "Консультація", d: "Розбираємо ваші потреби, обсяги та цільові ринки.", i: <Handshake /> },
+              { t: "Пошук постачальника", d: "Перевіряємо виробників під ваші специфікації.", i: <Globe /> },
+              { t: "Документація", d: "Оформлюємо контракти, інвойси та митні документи.", i: <Doc /> },
+              { t: "Доставка", d: "Контролюємо логістику від заводу до вашого складу.", i: <Anchor /> },
+            ].map((s, i) => (
+              <div key={s.t} className="mn-step">
+                <div className="mn-step-num">{String(i + 1).padStart(2, "0")}</div>
+                <div className="mn-step-ico">{s.i}</div>
+                <h3>{s.t}</h3>
+                <p>{s.d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* WHY */}
+      <section className="mn-section" id="why">
+        <div className="mn-wrap mn-why">
+          <div>
+            <h2 className="mn-serif">Чому обирають Atlas Trans</h2>
+            <p className="mn-why-desc">
+              Поєднуємо глибокі знання ринку з операційною дисципліною, щоб ваші зовнішньоекономічні
+              операції проходили без зривів та сюрпризів.
+            </p>
+          </div>
+          <div className="mn-why-list">
+            {[
+              "Перевірена мережа постачальників",
+              "Прозоре ціноутворення",
+              "Зменшення операційних ризиків",
+              "Спрощені митні процедури",
+              "Прозорість на кожному етапі",
+              "Виділена команда під клієнта",
+            ].map((t) => (
+              <div key={t} className="mn-why-item">
+                <Check /> <span>{t}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="mn-cta" id="contact">
+        <div className="mn-wrap">
+          <Trend />
+          <h2>Готові спростити вашу ЗЕД?</h2>
+          <p>
+            Звʼяжіться з нами — обговоримо, як Atlas Trans може взяти на себе ваше митне оформлення,
+            логістику та документообіг.
+          </p>
+          <a href="tel:+380000000000" className="mn-btn mn-btn-primary">Звʼязатися <span>→</span></a>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="mn-footer">
+        <div className="mn-wrap mn-footer-grid">
+          <img src={logoUrl} alt="Atlas Trans" />
+          <div>© {new Date().getFullYear()} Atlas Trans. Усі права захищені.</div>
+          <Link to="/" style={{ color: "rgba(255,255,255,.7)" }}>← На основну версію</Link>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+/* ICONS */
+const S = { width: 22, height: 22, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
+const Pin = () => (<svg {...S}><path d="M12 22s-7-7.58-7-13a7 7 0 1 1 14 0c0 5.42-7 13-7 13Z"/><circle cx="12" cy="9" r="2.5"/></svg>);
+const Ship = () => (<svg {...S}><path d="M3 18s2 2 4 2 3-2 5-2 3 2 5 2 4-2 4-2"/><path d="M5 14l7-3 7 3"/><path d="M12 11V5h4l2 6"/><path d="M12 5H8L6 11"/></svg>);
+const People = () => (<svg {...S}><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/><circle cx="17" cy="9" r="2.5"/><path d="M15 20c0-2.5 2-4 4.5-4"/></svg>);
+const Clock = () => (<svg {...S}><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>);
+const Globe = () => (<svg {...S}><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>);
+const Box = () => (<svg {...S}><path d="M12 3l9 5v8l-9 5-9-5V8z"/><path d="M9 12l2 2 4-4"/></svg>);
+const Handshake = () => (<svg {...S}><path d="M2 13l4-4 4 2 4-4 4 2 4-4"/><path d="M6 17l4 3 4-3 4 1"/></svg>);
+const Doc = () => (<svg {...S}><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4"/><path d="M9 14l2 2 4-4"/></svg>);
+const Anchor = () => (<svg {...S}><circle cx="12" cy="5" r="2"/><path d="M12 7v15"/><path d="M5 15a7 7 0 0 0 14 0"/><path d="M3 15h4M17 15h4"/></svg>);
+const Check = () => (<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>);
+const Trend = () => (<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" style={{margin:"0 auto",display:"block"}}><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>);
