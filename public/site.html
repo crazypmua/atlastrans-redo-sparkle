@@ -160,7 +160,8 @@
 
     /* ── SERVICES ── */
     #services { background: var(--light); }
-    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
+    .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.4rem; }
+    @media (max-width: 760px) { .cards { grid-template-columns: 1fr; } }
     .card {
       background: var(--white); border: 1px solid var(--border); border-radius: 12px;
       padding: 2rem 1.8rem; display: flex; flex-direction: column;
@@ -170,6 +171,7 @@
     .card:nth-child(1) { border-top: 3px solid var(--accent); }
     .card:nth-child(2) { border-top: 3px solid var(--cyan); }
     .card:nth-child(3) { border-top: 3px solid var(--gold); }
+    .card:nth-child(4) { border-top: 3px solid var(--navy); }
     .card-num { font-size: .7rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.1rem; }
     .card h3 { font-size: 1.1rem; font-weight: 800; color: var(--navy); margin-bottom: .5rem; line-height: 1.3; }
     .card-desc { font-size: .9rem; color: var(--gray); margin-bottom: 1.4rem; line-height: 1.65; }
@@ -404,41 +406,25 @@
   <div class="eyebrow center">Напрямки роботи</div>
   <h2 class="s-title center">Що входить в наш периметр</h2>
   <div class="cards">
-    <div class="card">
+    <div class="card reveal">
       <div class="card-num">01</div>
-      <h3>Митне оформлення</h3>
-      <p class="card-desc">Оформлюємо імпорт, експорт, транзит та інші митні режими. Готуємо декларації, перевіряємо документи, підбираємо коди УКТ ЗЕД і супроводжуємо вантаж до випуску.</p>
-      <ul class="card-list">
-        <li>Підбір кодів УКТ ЗЕД</li>
-        <li>Митні декларації</li>
-        <li>Розрахунок платежів</li>
-        <li>Супровід митного контролю</li>
-        <li>Тимчасове ввезення та транзит</li>
-      </ul>
+      <h3>Митне декларування</h3>
+      <p class="card-desc">Оформлюємо імпорт, експорт, транзит та інші митні режими по всій території України. Готуємо декларації, перевіряємо документи, визначаємо коди УКТ ЗЕД та супроводжуємо оформлення до випуску товару.</p>
     </div>
-    <div class="card">
+    <div class="card reveal reveal-delay-1">
       <div class="card-num">02</div>
       <h3>Імпорт під ключ</h3>
-      <p class="card-desc">Організовуємо закупівлю товару за кордоном: постачальник, контракт, оплата, логістика, митне оформлення та передача товару вам з документами.</p>
-      <ul class="card-list">
-        <li>Пошук і перевірка постачальника</li>
-        <li>Укладення контракту та оплата</li>
-        <li>Організація міжнародної логістики</li>
-        <li>Митне оформлення</li>
-        <li>Передача товару з документами</li>
-      </ul>
+      <p class="card-desc">Працюємо за договором комісії та беремо на себе весь процес закупівлі товару: пошук постачальника, укладення контракту, міжнародні платежі, логістику, митне оформлення та передачу товару клієнту.</p>
     </div>
-    <div class="card">
+    <div class="card reveal reveal-delay-2">
       <div class="card-num">03</div>
-      <h3>Сертифікація та дозволи</h3>
-      <p class="card-desc">Визначаємо, які документи потрібні для вашого товару, і супроводжуємо їх отримання: сертифікати, декларації відповідності, висновки, фітосанітарні чи інші дозвільні документи.</p>
-      <ul class="card-list">
-        <li>Сертифікати відповідності</li>
-        <li>Декларації про відповідність</li>
-        <li>Сертифікати походження</li>
-        <li>Фітосанітарні документи</li>
-        <li>Супровід випробувань</li>
-      </ul>
+      <h3>Сертифікація та дозвільні документи</h3>
+      <p class="card-desc">Організовуємо отримання сертифікатів відповідності, декларацій, висновків та інших документів, необхідних для законного імпорту товарів.</p>
+    </div>
+    <div class="card reveal reveal-delay-3">
+      <div class="card-num">04</div>
+      <h3>Консалтинг із ЗЕД</h3>
+      <p class="card-desc">Допомагаємо правильно підготувати зовнішньоекономічну операцію ще до відправлення товару. Аналізуємо документи, перевіряємо умови поставки, визначаємо код УКТ ЗЕД, розраховуємо митні платежі та перелік необхідних дозвільних документів. Це дозволяє уникнути затримок, додаткових витрат і помилок під час митного оформлення.</p>
     </div>
   </div>
 </section>
