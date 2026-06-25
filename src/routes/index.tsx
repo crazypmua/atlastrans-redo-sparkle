@@ -215,7 +215,13 @@ bodyWithExtras = bodyWithExtras
 function Index() {
   useEffect(() => {
     // Reveal-on-scroll
-    const revealEls = document.querySelectorAll<HTMLElement>(".reveal");
+    const revealEls = document.querySelectorAll<HTMLElement>(".reveal, .reveal-left, .reveal-right, .reveal-zoom");
+    // Stagger siblings inside grids
+    document.querySelectorAll<HTMLElement>(".cards, .why-grid, .whom-grid").forEach((grid) => {
+      Array.from(grid.children).forEach((child, i) => {
+        (child as HTMLElement).style.transitionDelay = `${Math.min(i * 90, 540)}ms`;
+      });
+    });
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
