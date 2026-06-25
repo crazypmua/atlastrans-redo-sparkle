@@ -98,8 +98,8 @@ function MinimalPage() {
           .mn-stats-grid,.mn-cards-3,.mn-cards-4,.mn-why-list{grid-template-columns:1fr}
         }
         /* Reveal animations */
-        .mn-reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
-        .mn-reveal.in{opacity:1;transform:translateY(0)}
+        .mn-section-head,.mn-why > div:first-child{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+        .mn-in .mn-section-head,.mn-in.mn-why > div:first-child,.mn-why.mn-in > div:first-child{opacity:1;transform:translateY(0)}
         .mn-card,.mn-step,.mn-client,.mn-why-item{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease,border-color .25s,box-shadow .25s}
         .mn-in .mn-card,.mn-in .mn-step,.mn-in .mn-client,.mn-in .mn-why-item{opacity:1;transform:translateY(0)}
         .mn-in .mn-card:nth-child(2),.mn-in .mn-step:nth-child(2),.mn-in .mn-client:nth-child(2),.mn-in .mn-why-item:nth-child(2){transition-delay:.08s}
