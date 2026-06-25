@@ -298,7 +298,7 @@ function MinimalPage() {
       </footer>
       <script
         dangerouslySetInnerHTML={{
-          __html: `(function(){var n=document.getElementById('mn-nav');if(!n)return;var on=function(){if(window.scrollY>40)n.classList.add('shrunk');else n.classList.remove('shrunk')};window.addEventListener('scroll',on,{passive:true});on();})();`,
+          __html: `(function(){var n=document.getElementById('mn-nav');if(n){var on=function(){if(window.scrollY>40)n.classList.add('shrunk');else n.classList.remove('shrunk')};window.addEventListener('scroll',on,{passive:true});on();}if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('mn-in');io.unobserve(e.target);}});},{threshold:0.15,rootMargin:'0px 0px -60px 0px'});document.querySelectorAll('.mn-section, .mn-stats, .mn-cta').forEach(function(el){io.observe(el);});}else{document.querySelectorAll('.mn-section, .mn-stats, .mn-cta').forEach(function(el){el.classList.add('mn-in');});}})();`,
         }}
       />
     </div>
