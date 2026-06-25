@@ -18,8 +18,8 @@ export function buildOverrideStyles(assets: SiteAssets) {
   const { hero, trust, clientsBg } = assets;
 
   return `
-  nav .logo, footer .f-logo { gap: .6rem; }
-  nav .logo img { height: 56px !important; width: auto !important; display: block; border-radius: 8px; }
+  .site-nav .logo, footer .f-logo { gap: .6rem; }
+  .site-nav .logo img { height: 56px !important; width: auto !important; display: block; border-radius: 8px; }
   footer .f-logo img { height: 48px !important; width: auto !important; display: block; border-radius: 6px; }
 
   #hero {

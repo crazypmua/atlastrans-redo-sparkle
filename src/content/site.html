@@ -24,29 +24,29 @@
     body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; color: var(--text); background: var(--white); line-height: 1.7; }
 
     /* ── NAV ── */
-    nav {
+    .site-nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       background: var(--navy); height: 62px;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 6%;
       border-bottom: 1px solid rgba(255,255,255,.06);
     }
-    .logo { display: flex; align-items: center; text-decoration: none; }
-    .logo img { height: 40px; width: auto; }
-    .logo-fallback { font-size: 1.2rem; font-weight: 800; letter-spacing: .07em; color: #fff; display: none; }
-    .logo-fallback span { color: #5b9ee6; }
+    .site-nav .logo { display: flex; align-items: center; text-decoration: none; }
+    .site-nav .logo img { height: 40px; width: auto; }
+    .site-nav .logo-fallback { font-size: 1.2rem; font-weight: 800; letter-spacing: .07em; color: #fff; display: none; }
+    .site-nav .logo-fallback span { color: #5b9ee6; }
     .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a { color: rgba(255,255,255,.6); text-decoration: none; font-size: .87rem; font-weight: 500; transition: color .2s; }
     .nav-links a:hover { color: #fff; }
     .nav-cta { background: var(--accent) !important; color: #fff !important; padding: .38rem 1.1rem; border-radius: 5px; font-weight: 600 !important; }
     .nav-cta:hover { background: var(--mid) !important; }
-    .nav-phone {
+    .site-nav .nav-phone {
       display: inline-flex; align-items: center; gap: .55rem;
       color: #fff; text-decoration: none; font-weight: 700; font-size: 1rem;
       letter-spacing: .01em;
     }
-    .nav-phone:hover { color: var(--cyan); }
-    .nav-phone svg { width: 16px; height: 16px; stroke: var(--cyan); fill: none; stroke-width: 2; }
+    .site-nav .nav-phone:hover { color: var(--cyan); }
+    .site-nav .nav-phone svg { width: 16px; height: 16px; stroke: var(--cyan); fill: none; stroke-width: 2; }
     .eyebrow { display: none !important; }
 
     /* ── HERO ── */
@@ -345,7 +345,7 @@
 <body>
 
 <!-- NAV -->
-<nav>
+<nav class="site-nav">
   <a href="#" class="logo">
     <img src="logo.png" alt="Atlas Trans" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
     <span class="logo-fallback">ATLAS<span>TRANS</span></span>
