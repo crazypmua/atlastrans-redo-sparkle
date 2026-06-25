@@ -109,13 +109,11 @@ const overrideStyles = `
   }
   .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 20px 42px -10px rgba(245,166,35,.7); }
   .hero-license {
-    margin-top: 2.2rem; display: inline-flex; align-items: center; gap: .7rem;
-    padding: .7rem 1.1rem; border-radius: 12px;
-    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16);
-    color: #fff; font-size: .92rem; backdrop-filter: blur(8px);
+    margin-top: .9rem; display: flex; align-items: center; gap: .5rem;
+    color: rgba(255,255,255,.7); font-size: .78rem; line-height: 1.3;
   }
-  .hero-license b { font-weight: 600; }
-  .hero-license small { display: block; opacity: .75; font-size: .78rem; }
+  .hero-license b { font-weight: 500; color: rgba(255,255,255,.85); }
+  .hero-license small { font-size: .72rem; opacity: .8; margin-left: .35rem; }
 
   /* ===== Reveal-on-scroll animations ===== */
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
